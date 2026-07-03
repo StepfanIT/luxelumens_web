@@ -180,47 +180,33 @@ const testimonials = [
   },
 ];
 
-function Logo({ light = false }) {
-  const markColor = light ? '#ffffff' : '#07182b';
+function Logo({ mode = 'blue' }) {
+  const isGold = mode === 'gold';
+  const primary = isGold ? '#f3f0ea' : '#0b2545';
+  const accent = isGold ? '#c89b4f' : '#1566d1';
+  const accentDark = isGold ? '#8a632a' : '#0b2545';
 
   return (
-    <a href="#top" className="luxe-logo group" aria-label="Luxe Lumens">
+    <a href="#top" className={`luxe-logo luxe-logo-${mode} group`} aria-label="Luxe Lumens">
       <span className="luxe-logo-mark">
-        <svg viewBox="0 0 72 72" className="h-14 w-14" aria-hidden="true">
-          <defs>
-            <linearGradient id="logoGold" x1="8" x2="56" y1="6" y2="62">
-              <stop stopColor="#ffe6a8" />
-              <stop offset="0.45" stopColor="#d6a24a" />
-              <stop offset="1" stopColor="#8f5f1d" />
-            </linearGradient>
-            <radialGradient id="logoGlow" cx="55%" cy="53%" r="55%">
-              <stop stopColor="#f4c76e" stopOpacity="0.85" />
-              <stop offset="1" stopColor="#f4c76e" stopOpacity="0" />
-            </radialGradient>
-          </defs>
+        <svg viewBox="0 0 76 76" className="h-12 w-12" aria-hidden="true">
           <path
-            d="M41 39C49 31 60 30 68 36C61 39 55 43 49 50L41 50V39Z"
-            fill="url(#logoGlow)"
+            d="M42 40C50 31 61 31 68 36C61 39 55 43 49 50H42V40Z"
+            fill={accent}
+            opacity={isGold ? 0.22 : 0.12}
           />
-          <path d="M12 8H24V48H58V60H12V8Z" fill="url(#logoGold)" />
-          <path d="M30 8H42V36H64V48H30V8Z" fill={markColor} />
-          <path d="M12 8H15V60H12V8Z" fill="#fff4cf" opacity={light ? 0.7 : 0.42} />
+          <path d="M13 9H25V51H61V63H13V9Z" fill={accent} />
+          <path d="M20 9H26V57H61V63H20V9Z" fill={isGold ? '#e8c47a' : '#5aa2ff'} opacity="0.72" />
+          <path d="M31 9H43V36H65V48H31V9Z" fill={primary} />
+          <path d="M43 42H65V48H43V42Z" fill={accentDark} opacity={isGold ? 0.46 : 0.18} />
         </svg>
       </span>
-      <span className="leading-none">
-        <span
-          className={`block text-[1.04rem] font-extrabold uppercase tracking-[0.34em] ${
-            light ? 'text-white' : 'text-ink'
-          }`}
-        >
-          Luxe
-        </span>
-        <span className="mt-2 flex items-center gap-2">
-          <span className="h-px w-8 bg-butter" />
-          <span className="block text-[0.66rem] font-extrabold uppercase tracking-[0.42em] text-butter">
-            Lumens
-          </span>
-          <span className="h-px w-8 bg-butter" />
+      <span className="luxe-logo-wordmark">
+        <span className="luxe-logo-title">Luxe</span>
+        <span className="luxe-logo-subline">
+          <span />
+          <span>Lumens</span>
+          <span />
         </span>
       </span>
     </a>
@@ -342,7 +328,7 @@ function Header({ theme, onThemeChange }) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-white/88 backdrop-blur-xl">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
-        <Logo light={theme === 'gold'} />
+        <Logo mode={theme === 'gold' ? 'gold' : 'blue'} />
         <div className="hidden items-center gap-8 lg:flex">
           {navLinks.map(([label, href]) => (
             <a
@@ -609,12 +595,22 @@ function AppControl() {
                   <Wand2 className="h-6 w-6" />
                 </div>
               </div>
-              <div className="mt-6 overflow-hidden rounded-3xl">
-                <img
-                  src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?auto=format&fit=crop&w=1100&q=82"
-                  alt="Dom z wieczornym oświetleniem architektonicznym"
-                  className="h-72 w-full object-cover"
-                />
+              <div
+                className="app-preview-scene mt-6 overflow-hidden rounded-3xl"
+                aria-label="Dom z wieczornym oświetleniem architektonicznym"
+                role="img"
+              >
+                <div className="app-preview-sky" />
+                <div className="app-preview-house">
+                  <span className="roof" />
+                  <span className="body" />
+                  <span className="garage" />
+                  <span className="door" />
+                  <span className="window window-left" />
+                  <span className="window window-right" />
+                  <span className="light-line light-line-roof" />
+                  <span className="light-line light-line-garage" />
+                </div>
               </div>
               <div className="mt-6">
                 <div className="flex items-center justify-between">
@@ -887,7 +883,7 @@ function Footer() {
     <footer className="bg-ink py-10 text-white">
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 md:flex-row md:items-center md:justify-between lg:px-8">
         <div>
-          <Logo light />
+          <Logo mode="gold" />
           <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
             Stałe oświetlenie LED elewacji dla domów, świąt i codziennego
             wieczornego komfortu.

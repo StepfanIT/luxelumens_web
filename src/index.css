@@ -59,7 +59,7 @@ a {
 .luxe-logo {
   display: inline-flex;
   flex-shrink: 0;
-  gap: 0.78rem;
+  gap: 0.7rem;
   align-items: center;
   text-decoration: none;
 }
@@ -68,7 +68,170 @@ a {
   display: grid;
   flex-shrink: 0;
   place-items: center;
-  filter: drop-shadow(0 10px 22px rgba(214, 162, 74, 0.18));
+}
+
+.luxe-logo-gold .luxe-logo-mark {
+  filter: drop-shadow(0 10px 22px rgba(200, 155, 79, 0.22));
+}
+
+.luxe-logo-blue .luxe-logo-mark {
+  filter: drop-shadow(0 10px 22px rgba(21, 102, 209, 0.14));
+}
+
+.luxe-logo-wordmark {
+  display: grid;
+  gap: 0.36rem;
+  line-height: 1;
+}
+
+.luxe-logo-title {
+  color: #0b2545;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.luxe-logo-subline {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  color: #1566d1;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+}
+
+.luxe-logo-subline span:first-child,
+.luxe-logo-subline span:last-child {
+  width: 1.42rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.9;
+}
+
+.luxe-logo-gold .luxe-logo-title {
+  color: #ffffff;
+}
+
+.luxe-logo-gold .luxe-logo-subline {
+  color: #c89b4f;
+}
+
+.app-preview-scene {
+  position: relative;
+  height: 18rem;
+  background:
+    radial-gradient(circle at 58% 25%, rgba(21, 102, 209, 0.28), transparent 22rem),
+    linear-gradient(180deg, #07182b 0%, #102b4a 46%, #081624 100%);
+}
+
+.app-preview-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(247, 200, 115, 0.85) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 16%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 67% 34%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px);
+}
+
+.app-preview-house {
+  position: absolute;
+  right: 8%;
+  bottom: 13%;
+  left: 8%;
+  height: 58%;
+}
+
+.app-preview-house .roof {
+  position: absolute;
+  right: 9%;
+  bottom: 52%;
+  left: 6%;
+  height: 44%;
+  clip-path: polygon(0 100%, 22% 18%, 52% 52%, 72% 28%, 100% 100%);
+  background: #182a3f;
+  box-shadow: inset 0 -14px 0 rgba(0, 0, 0, 0.18);
+}
+
+.app-preview-house .body,
+.app-preview-house .garage {
+  position: absolute;
+  bottom: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #223852, #142337);
+}
+
+.app-preview-house .body {
+  right: 9%;
+  left: 9%;
+  height: 58%;
+  border-radius: 0.45rem 0.45rem 0 0;
+}
+
+.app-preview-house .garage {
+  right: 12%;
+  bottom: 0;
+  width: 30%;
+  height: 35%;
+  border-radius: 0.3rem 0.3rem 0 0;
+  background: linear-gradient(180deg, #203247, #0e1827);
+}
+
+.app-preview-house .door,
+.app-preview-house .window {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  border: 1px solid rgba(247, 200, 115, 0.22);
+  background: rgba(247, 200, 115, 0.12);
+  box-shadow: 0 0 26px rgba(247, 200, 115, 0.18);
+}
+
+.app-preview-house .door {
+  left: 27%;
+  width: 11%;
+  height: 34%;
+  border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.app-preview-house .window {
+  bottom: 32%;
+  width: 12%;
+  height: 16%;
+  border-radius: 0.25rem;
+}
+
+.app-preview-house .window-left {
+  left: 43%;
+}
+
+.app-preview-house .window-right {
+  right: 27%;
+}
+
+.app-preview-house .light-line {
+  position: absolute;
+  z-index: 4;
+  height: 0.2rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffe1a0, #ffffff, #5aa2ff, #1566d1);
+  box-shadow:
+    0 0 18px rgba(247, 200, 115, 0.85),
+    0 0 36px rgba(21, 102, 209, 0.4);
+}
+
+.app-preview-house .light-line-roof {
+  right: 9%;
+  bottom: 51%;
+  left: 7%;
+}
+
+.app-preview-house .light-line-garage {
+  right: 12%;
+  bottom: 35%;
+  width: 30%;
 }
 
 .theme-toggle {
@@ -186,12 +349,24 @@ a {
   }
 
   .luxe-logo-mark svg {
-    width: 3rem;
-    height: 3rem;
+    width: 2.8rem;
+    height: 2.8rem;
   }
 
-  .luxe-logo [class*='tracking-'] {
+  .luxe-logo-title {
+    font-size: 0.86rem;
     letter-spacing: 0.22em;
+  }
+
+  .luxe-logo-subline {
+    gap: 0.35rem;
+    font-size: 0.54rem;
+    letter-spacing: 0.26em;
+  }
+
+  .luxe-logo-subline span:first-child,
+  .luxe-logo-subline span:last-child {
+    width: 0.9rem;
   }
 
   .theme-toggle {
@@ -327,6 +502,28 @@ html[data-theme='gold'] body {
 [data-theme='gold'] option {
   color: #fff8ec;
   background-color: #100d09;
+}
+
+[data-theme='gold'] .app-preview-scene {
+  background:
+    radial-gradient(circle at 58% 25%, rgba(200, 155, 79, 0.3), transparent 22rem),
+    linear-gradient(180deg, #060504 0%, #15100a 48%, #050505 100%);
+}
+
+[data-theme='gold'] .app-preview-house .roof {
+  background: #1b160f;
+}
+
+[data-theme='gold'] .app-preview-house .body,
+[data-theme='gold'] .app-preview-house .garage {
+  background: linear-gradient(180deg, #211a11, #100c08);
+}
+
+[data-theme='gold'] .app-preview-house .light-line {
+  background: linear-gradient(90deg, #9a6a24, #ffe1a0, #ffffff, #c89b4f);
+  box-shadow:
+    0 0 20px rgba(200, 155, 79, 0.92),
+    0 0 42px rgba(244, 199, 110, 0.34);
 }
 
 [data-theme='gold'] .custom-select-trigger:hover,
