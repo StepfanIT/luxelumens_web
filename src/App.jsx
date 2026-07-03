@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   BadgeCheck,
+  ChevronDown,
   CalendarDays,
   CheckCircle2,
   ChevronRight,
@@ -24,7 +25,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const heroImage =
   'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=86';
@@ -111,6 +112,13 @@ const appFeatures = [
   ['Jasność', 'Od delikatnej linii po wyraziste podświetlenie.'],
 ];
 
+const objectTypes = [
+  'Dom jednorodzinny',
+  'Szeregowiec',
+  'Elewacja komercyjna',
+  'Taras lub ogród',
+];
+
 const process = [
   {
     icon: Phone,
@@ -173,51 +181,105 @@ const testimonials = [
 ];
 
 function Logo({ light = false }) {
+  const markColor = light ? '#ffffff' : '#07182b';
+
   return (
-    <a href="#top" className="group flex items-center gap-3" aria-label="Luxe Lumens">
-      <span
-        className={`grid h-11 w-11 place-items-center rounded-2xl border ${
-          light
-            ? 'border-white/20 bg-white/10 text-white'
-            : 'border-skybrand/15 bg-white text-skybrand shadow-soft'
-        }`}
-      >
-        <svg viewBox="0 0 40 40" className="h-7 w-7" aria-hidden="true">
+    <a href="#top" className="luxe-logo group" aria-label="Luxe Lumens">
+      <span className="luxe-logo-mark">
+        <svg viewBox="0 0 72 72" className="h-14 w-14" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGold" x1="8" x2="56" y1="6" y2="62">
+              <stop stopColor="#ffe6a8" />
+              <stop offset="0.45" stopColor="#d6a24a" />
+              <stop offset="1" stopColor="#8f5f1d" />
+            </linearGradient>
+            <radialGradient id="logoGlow" cx="55%" cy="53%" r="55%">
+              <stop stopColor="#f4c76e" stopOpacity="0.85" />
+              <stop offset="1" stopColor="#f4c76e" stopOpacity="0" />
+            </radialGradient>
+          </defs>
           <path
-            d="M11 31V8h5v18h13v5H11Z"
-            fill="currentColor"
-            opacity="0.95"
+            d="M41 39C49 31 60 30 68 36C61 39 55 43 49 50L41 50V39Z"
+            fill="url(#logoGlow)"
           />
-          <path
-            d="M20 24V8h5v11h8v5H20Z"
-            fill="currentColor"
-            opacity="0.58"
-          />
-          <path
-            d="M8 34h24"
-            stroke={light ? '#f7c873' : '#0eaec3'}
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
+          <path d="M12 8H24V48H58V60H12V8Z" fill="url(#logoGold)" />
+          <path d="M30 8H42V36H64V48H30V8Z" fill={markColor} />
+          <path d="M12 8H15V60H12V8Z" fill="#fff4cf" opacity={light ? 0.7 : 0.42} />
         </svg>
       </span>
       <span className="leading-none">
         <span
-          className={`block text-[1.02rem] font-extrabold uppercase tracking-[0.18em] ${
+          className={`block text-[1.04rem] font-extrabold uppercase tracking-[0.34em] ${
             light ? 'text-white' : 'text-ink'
           }`}
         >
           Luxe
         </span>
-        <span
-          className={`mt-1 block text-[0.68rem] font-bold uppercase tracking-[0.34em] ${
-            light ? 'text-butter' : 'text-skybrand'
-          }`}
-        >
-          Lumens
+        <span className="mt-2 flex items-center gap-2">
+          <span className="h-px w-8 bg-butter" />
+          <span className="block text-[0.66rem] font-extrabold uppercase tracking-[0.42em] text-butter">
+            Lumens
+          </span>
+          <span className="h-px w-8 bg-butter" />
         </span>
       </span>
     </a>
+  );
+}
+
+function CustomSelect({ label, value, options, onChange }) {
+  const [open, setOpen] = useState(false);
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    const closeOnOutsideClick = (event) => {
+      if (!selectRef.current?.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+    return () => document.removeEventListener('pointerdown', closeOnOutsideClick);
+  }, []);
+
+  return (
+    <div className="custom-select" ref={selectRef}>
+      <span className="mb-2 block text-sm font-extrabold text-ink">{label}</span>
+      <button
+        type="button"
+        className="custom-select-trigger"
+        onClick={() => setOpen((current) => !current)}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') {
+            setOpen(false);
+          }
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span>{value}</span>
+        <ChevronDown className={`h-5 w-5 transition ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open ? (
+        <div className="custom-select-menu" role="listbox" tabIndex={-1}>
+          {options.map((option) => (
+            <button
+              key={option}
+              type="button"
+              role="option"
+              aria-selected={option === value}
+              className={option === value ? 'selected' : ''}
+              onClick={() => {
+                onChange(option);
+                setOpen(false);
+              }}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -333,8 +395,8 @@ function Header({ theme, onThemeChange }) {
             <a
               href="#contact"
               className="mt-2 rounded-2xl bg-ink px-4 py-3 text-center font-extrabold text-white"
-            onClick={() => setOpen(false)}
-          >
+              onClick={() => setOpen(false)}
+            >
               Umów konsultację
             </a>
             <ThemeToggle theme={theme} onThemeChange={onThemeChange} />
@@ -730,6 +792,8 @@ function Testimonials() {
 }
 
 function Contact() {
+  const [objectType, setObjectType] = useState(objectTypes[0]);
+
   return (
     <section id="contact" className="bg-white py-20 lg:py-28">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
@@ -785,15 +849,12 @@ function Contact() {
                 className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 outline-none transition focus:border-skybrand focus:ring-4 focus:ring-skybrand/10"
               />
             </label>
-            <label>
-              <span className="mb-2 block text-sm font-extrabold text-ink">Typ obiektu</span>
-              <select className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 outline-none transition focus:border-skybrand focus:ring-4 focus:ring-skybrand/10">
-                <option>Dom jednorodzinny</option>
-                <option>Szeregowiec</option>
-                <option>Elewacja komercyjna</option>
-                <option>Taras lub ogród</option>
-              </select>
-            </label>
+            <CustomSelect
+              label="Typ obiektu"
+              value={objectType}
+              options={objectTypes}
+              onChange={setObjectType}
+            />
             <label className="sm:col-span-2">
               <span className="mb-2 block text-sm font-extrabold text-ink">
                 Co chcesz podświetlić?
@@ -859,12 +920,22 @@ export default function App() {
       return 'light';
     }
 
-    return window.localStorage.getItem('luxe-lumens-theme') || 'light';
+    try {
+      const savedTheme = window.localStorage.getItem('luxe-lumens-theme');
+      return savedTheme === 'gold' ? 'gold' : 'light';
+    } catch {
+      return 'light';
+    }
   });
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem('luxe-lumens-theme', theme);
+
+    try {
+      window.localStorage.setItem('luxe-lumens-theme', theme);
+    } catch {
+      // Safari private mode can block localStorage; the current session still works.
+    }
   }, [theme]);
 
   return (

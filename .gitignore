@@ -7,3 +7,7 @@ yarn-debug.log*
 yarn-error.log*
 dev-server.log
 dev-server.err
+vite-check.log
+vite-check.err
+screenshots/
+tmp-edge-profile/

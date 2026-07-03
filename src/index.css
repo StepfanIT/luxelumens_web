@@ -20,12 +20,19 @@ html {
 body {
   min-width: 320px;
   margin: 0;
+  overflow-x: hidden;
 }
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::selection {
@@ -34,6 +41,7 @@ textarea {
 }
 
 .image-mask {
+  -webkit-mask-image: linear-gradient(180deg, #000 76%, rgba(0, 0, 0, 0.1));
   mask-image: linear-gradient(180deg, #000 76%, rgba(0, 0, 0, 0.1));
 }
 
@@ -46,6 +54,21 @@ textarea {
     radial-gradient(circle at 76% 50%, rgba(14, 174, 195, 0.95) 0 2px, transparent 3px),
     radial-gradient(circle at 92% 50%, rgba(21, 102, 209, 0.95) 0 2px, transparent 3px),
     linear-gradient(90deg, rgba(247, 200, 115, 0.1), rgba(14, 174, 195, 0.16), rgba(21, 102, 209, 0.1));
+}
+
+.luxe-logo {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.78rem;
+  align-items: center;
+  text-decoration: none;
+}
+
+.luxe-logo-mark {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  filter: drop-shadow(0 10px 22px rgba(214, 162, 74, 0.18));
 }
 
 .theme-toggle {
@@ -83,6 +106,107 @@ textarea {
   color: #07182b;
   background: #ffffff;
   box-shadow: 0 8px 24px rgba(11, 37, 69, 0.12);
+}
+
+.custom-select {
+  position: relative;
+}
+
+.custom-select-trigger {
+  display: flex;
+  width: 100%;
+  min-height: 3.65rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  color: #07182b;
+  background: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+  outline: none;
+  box-shadow: 0 10px 26px rgba(11, 37, 69, 0.04);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.custom-select-trigger:hover,
+.custom-select-trigger[aria-expanded='true'] {
+  border-color: rgba(21, 102, 209, 0.48);
+  box-shadow: 0 0 0 4px rgba(21, 102, 209, 0.1);
+}
+
+.custom-select-menu {
+  position: absolute;
+  z-index: 45;
+  top: calc(100% + 0.55rem);
+  right: 0;
+  left: 0;
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.45rem;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 24px 70px rgba(11, 37, 69, 0.18);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.custom-select-menu button {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 0;
+  border-radius: 0.9rem;
+  color: #07182b;
+  background: transparent;
+  font-weight: 750;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.custom-select-menu button:hover,
+.custom-select-menu button.selected {
+  color: #ffffff;
+  background: #1566d1;
+}
+
+@media (max-width: 640px) {
+  .luxe-logo {
+    gap: 0.55rem;
+  }
+
+  .luxe-logo-mark svg {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .luxe-logo [class*='tracking-'] {
+    letter-spacing: 0.22em;
+  }
+
+  .theme-toggle {
+    width: 100%;
+  }
+
+  .theme-toggle button {
+    flex: 1;
+  }
+
+  .custom-select-menu {
+    position: relative;
+    top: auto;
+    margin-top: 0.55rem;
+  }
 }
 
 html[data-theme='gold'] body {
@@ -188,7 +312,8 @@ html[data-theme='gold'] body {
 
 [data-theme='gold'] input,
 [data-theme='gold'] textarea,
-[data-theme='gold'] select {
+[data-theme='gold'] select,
+[data-theme='gold'] .custom-select-trigger {
   color: #fff8ec;
   background-color: #100d09;
   border-color: rgba(244, 199, 110, 0.26);
@@ -202,6 +327,28 @@ html[data-theme='gold'] body {
 [data-theme='gold'] option {
   color: #fff8ec;
   background-color: #100d09;
+}
+
+[data-theme='gold'] .custom-select-trigger:hover,
+[data-theme='gold'] .custom-select-trigger[aria-expanded='true'] {
+  border-color: rgba(244, 199, 110, 0.56);
+  box-shadow: 0 0 0 4px rgba(244, 199, 110, 0.12);
+}
+
+[data-theme='gold'] .custom-select-menu {
+  border-color: rgba(244, 199, 110, 0.22);
+  background: rgba(14, 11, 7, 0.98);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.46);
+}
+
+[data-theme='gold'] .custom-select-menu button {
+  color: #fff8ec;
+}
+
+[data-theme='gold'] .custom-select-menu button:hover,
+[data-theme='gold'] .custom-select-menu button.selected {
+  color: #1b1408;
+  background: linear-gradient(135deg, #ffe1a0, #d6a24a);
 }
 
 [data-theme='gold'] .theme-toggle {
