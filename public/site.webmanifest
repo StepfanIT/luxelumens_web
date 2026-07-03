@@ -1,0 +1,10 @@
+{
+  "name": "Luxe Lumens",
+  "short_name": "Luxe Lumens",
+  "description": "Stałe oświetlenie LED elewacji dla domów w Polsce.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f6f9fc",
+  "theme_color": "#0b2545",
+  "lang": "pl"
+}

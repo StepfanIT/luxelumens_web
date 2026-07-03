@@ -29,6 +29,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const heroImage =
   'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=86';
+const appPreviewImage = `${import.meta.env.BASE_URL}images/app-preview-house.png`;
 
 const galleryImages = [
   {
@@ -182,23 +183,18 @@ const testimonials = [
 
 function Logo({ mode = 'blue' }) {
   const isGold = mode === 'gold';
-  const primary = isGold ? '#f3f0ea' : '#0b2545';
-  const accent = isGold ? '#c89b4f' : '#1566d1';
-  const accentDark = isGold ? '#8a632a' : '#0b2545';
+  const primary = isGold ? '#ffffff' : '#0b2545';
+  const accent = isGold ? '#c39a55' : '#176bd8';
+  const accentSoft = isGold ? '#e8c47a' : '#5aa2ff';
 
   return (
     <a href="#top" className={`luxe-logo luxe-logo-${mode} group`} aria-label="Luxe Lumens">
       <span className="luxe-logo-mark">
-        <svg viewBox="0 0 76 76" className="h-12 w-12" aria-hidden="true">
-          <path
-            d="M42 40C50 31 61 31 68 36C61 39 55 43 49 50H42V40Z"
-            fill={accent}
-            opacity={isGold ? 0.22 : 0.12}
-          />
-          <path d="M13 9H25V51H61V63H13V9Z" fill={accent} />
-          <path d="M20 9H26V57H61V63H20V9Z" fill={isGold ? '#e8c47a' : '#5aa2ff'} opacity="0.72" />
-          <path d="M31 9H43V36H65V48H31V9Z" fill={primary} />
-          <path d="M43 42H65V48H43V42Z" fill={accentDark} opacity={isGold ? 0.46 : 0.18} />
+        <svg viewBox="0 0 64 64" className="h-11 w-11" aria-hidden="true">
+          <path d="M10 7H22V46H54V58H10V7Z" fill={accent} />
+          <path d="M16 7H22V52H54V58H16V7Z" fill={accentSoft} opacity="0.72" />
+          <path d="M29 7H40V34H58V45H29V7Z" fill={primary} />
+          <path d="M40 39H58V45H40V39Z" fill={primary} opacity="0.94" />
         </svg>
       </span>
       <span className="luxe-logo-wordmark">
@@ -595,22 +591,13 @@ function AppControl() {
                   <Wand2 className="h-6 w-6" />
                 </div>
               </div>
-              <div
-                className="app-preview-scene mt-6 overflow-hidden rounded-3xl"
-                aria-label="Dom z wieczornym oświetleniem architektonicznym"
-                role="img"
-              >
-                <div className="app-preview-sky" />
-                <div className="app-preview-house">
-                  <span className="roof" />
-                  <span className="body" />
-                  <span className="garage" />
-                  <span className="door" />
-                  <span className="window window-left" />
-                  <span className="window window-right" />
-                  <span className="light-line light-line-roof" />
-                  <span className="light-line light-line-garage" />
-                </div>
+              <div className="mt-6 overflow-hidden rounded-3xl">
+                <img
+                  src={appPreviewImage}
+                  alt="Nowoczesny dom z permanentnym oświetleniem LED elewacji"
+                  className="app-preview-photo h-72 w-full object-cover"
+                  loading="lazy"
+                />
               </div>
               <div className="mt-6">
                 <div className="flex items-center justify-between">
@@ -640,12 +627,10 @@ function AppControl() {
                   </button>
                 ))}
               </div>
-            </div>
-          </div>
-          <div className="absolute -bottom-8 -left-4 hidden rounded-3xl bg-white p-5 shadow-soft md:block">
-            <div className="flex items-center gap-3">
-              <Clock3 className="h-5 w-5 text-skybrand" />
-              <span className="font-extrabold text-ink">Harmonogram aktywny</span>
+              <div className="mt-5 inline-flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                <Clock3 className="h-5 w-5 text-skybrand" />
+                <span className="font-extrabold text-ink">Harmonogram aktywny</span>
+              </div>
             </div>
           </div>
         </div>
