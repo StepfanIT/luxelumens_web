@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #07182b;
+  background: #f6f9fc;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  color: #ffffff;
+  background: #1566d1;
+}
+
+.image-mask {
+  mask-image: linear-gradient(180deg, #000 76%, rgba(0, 0, 0, 0.1));
+}
+
+.light-track {
+  background:
+    radial-gradient(circle at 12% 50%, rgba(247, 200, 115, 0.95) 0 2px, transparent 3px),
+    radial-gradient(circle at 28% 50%, rgba(14, 174, 195, 0.95) 0 2px, transparent 3px),
+    radial-gradient(circle at 44% 50%, rgba(21, 102, 209, 0.95) 0 2px, transparent 3px),
+    radial-gradient(circle at 60% 50%, rgba(247, 200, 115, 0.95) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 50%, rgba(14, 174, 195, 0.95) 0 2px, transparent 3px),
+    radial-gradient(circle at 92% 50%, rgba(21, 102, 209, 0.95) 0 2px, transparent 3px),
+    linear-gradient(90deg, rgba(247, 200, 115, 0.1), rgba(14, 174, 195, 0.16), rgba(21, 102, 209, 0.1));
+}
+
+.theme-toggle {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 30px rgba(11, 37, 69, 0.08);
+}
+
+.theme-toggle button {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.35rem;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  color: #64748b;
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.theme-toggle button.active {
+  color: #07182b;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(11, 37, 69, 0.12);
+}
+
+html[data-theme='gold'] body {
+  background: #050505;
+}
+
+[data-theme='gold'] {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(214, 162, 74, 0.16), transparent 34rem),
+    radial-gradient(circle at 85% 10%, rgba(244, 210, 139, 0.1), transparent 30rem),
+    #050505;
+  color: #f8f3ea;
+}
+
+[data-theme='gold'] .bg-white,
+[data-theme='gold'] .bg-porcelain,
+[data-theme='gold'] .bg-white\/88,
+[data-theme='gold'] .bg-white\/92,
+[data-theme='gold'] .bg-slate-50,
+[data-theme='gold'] .bg-slate-100 {
+  background-color: #080706;
+}
+
+[data-theme='gold'] .bg-white\/80 {
+  background-color: rgba(244, 210, 139, 0.76);
+}
+
+[data-theme='gold'] .bg-ink {
+  background-color: #050505;
+}
+
+[data-theme='gold'] .text-ink {
+  color: #fff8ec;
+}
+
+[data-theme='gold'] .text-slate-700,
+[data-theme='gold'] .text-slate-600,
+[data-theme='gold'] .text-slate-500,
+[data-theme='gold'] .text-slate-400,
+[data-theme='gold'] .text-slate-300 {
+  color: rgba(248, 243, 234, 0.72);
+}
+
+[data-theme='gold'] .text-skybrand,
+[data-theme='gold'] .text-aqua,
+[data-theme='gold'] .text-butter,
+[data-theme='gold'] .hover\:text-skybrand:hover {
+  color: #f4c76e;
+}
+
+[data-theme='gold'] .bg-skybrand,
+[data-theme='gold'] .hover\:bg-skybrand:hover {
+  background-color: #d6a24a;
+}
+
+[data-theme='gold'] .hover\:bg-navy:hover,
+[data-theme='gold'] .bg-navy {
+  background-color: #b98226;
+}
+
+[data-theme='gold'] .bg-skybrand\/10,
+[data-theme='gold'] .bg-aqua\/10 {
+  background-color: rgba(244, 199, 110, 0.12);
+}
+
+[data-theme='gold'] .border-slate-200,
+[data-theme='gold'] .border-slate-300,
+[data-theme='gold'] .border-skybrand\/15,
+[data-theme='gold'] .border-skybrand\/20,
+[data-theme='gold'] .hover\:border-skybrand\/30:hover,
+[data-theme='gold'] .hover\:border-skybrand\/40:hover {
+  border-color: rgba(244, 199, 110, 0.22);
+}
+
+[data-theme='gold'] .shadow-sm,
+[data-theme='gold'] .shadow-soft,
+[data-theme='gold'] .shadow-lift {
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme='gold'] .bg-grid {
+  background-image:
+    linear-gradient(rgba(244, 199, 110, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 199, 110, 0.055) 1px, transparent 1px);
+}
+
+[data-theme='gold'] .from-white {
+  --tw-gradient-from: #050505 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgba(5, 5, 5, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+[data-theme='gold'] .light-track {
+  background:
+    radial-gradient(circle at 12% 50%, rgba(244, 199, 110, 1) 0 2px, transparent 3px),
+    radial-gradient(circle at 28% 50%, rgba(255, 238, 186, 0.95) 0 2px, transparent 3px),
+    radial-gradient(circle at 44% 50%, rgba(214, 162, 74, 0.95) 0 2px, transparent 3px),
+    radial-gradient(circle at 60% 50%, rgba(244, 199, 110, 1) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 50%, rgba(255, 238, 186, 0.95) 0 2px, transparent 3px),
+    radial-gradient(circle at 92% 50%, rgba(214, 162, 74, 0.95) 0 2px, transparent 3px),
+    linear-gradient(90deg, rgba(214, 162, 74, 0.16), rgba(244, 199, 110, 0.24), rgba(214, 162, 74, 0.16));
+}
+
+[data-theme='gold'] input,
+[data-theme='gold'] textarea,
+[data-theme='gold'] select {
+  color: #fff8ec;
+  background-color: #100d09;
+  border-color: rgba(244, 199, 110, 0.26);
+}
+
+[data-theme='gold'] input::placeholder,
+[data-theme='gold'] textarea::placeholder {
+  color: rgba(248, 243, 234, 0.42);
+}
+
+[data-theme='gold'] option {
+  color: #fff8ec;
+  background-color: #100d09;
+}
+
+[data-theme='gold'] .theme-toggle {
+  border-color: rgba(244, 199, 110, 0.28);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
+}
+
+[data-theme='gold'] .theme-toggle button {
+  color: rgba(248, 243, 234, 0.68);
+}
+
+[data-theme='gold'] .theme-toggle button.active {
+  color: #1b1408;
+  background: linear-gradient(135deg, #ffe1a0, #d6a24a);
+  box-shadow: 0 10px 30px rgba(214, 162, 74, 0.26);
+}
