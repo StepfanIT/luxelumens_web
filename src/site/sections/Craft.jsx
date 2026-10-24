@@ -1,5 +1,5 @@
 import { CloudSnow, Moon, Sun } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useContent } from '../content.jsx';
 import { reducedMotion } from '../motion.js';
 import { Eyebrow } from '../ui/Button.jsx';
@@ -65,8 +65,9 @@ export default function Craft() {
   const { t } = useContent();
   const sectionRef = useRef(null);
   const stageRef = useRef(null);
-  const level = useRef(0);
-  const [night, setNight] = useState(false);
+  // Night is the default: that is when the product shows. Day is one tap away.
+  const level = useRef(1);
+  const [night, setNight] = useState(true);
 
   /** Paints the section at `value` between day (0) and night (1). */
   const paint = (value) => {
@@ -88,7 +89,7 @@ export default function Craft() {
     stage.dataset.night = value > 0.5 ? 'on' : 'off';
   };
 
-  useEffect(() => paint(0), []);
+  useLayoutEffect(() => paint(1), []);
 
   // Glide to the chosen time of day.
   useEffect(() => {
@@ -112,29 +113,10 @@ export default function Craft() {
     return () => cancelAnimationFrame(raf);
   }, [night]);
 
-  // Evening falls by itself the first time the section is in view.
-  useEffect(() => {
-    const section = sectionRef.current;
-    let timer = 0;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        io.disconnect();
-        timer = setTimeout(() => setNight(true), 1100);
-      },
-      { threshold: 0.45 },
-    );
-    io.observe(section);
-    return () => {
-      io.disconnect();
-      clearTimeout(timer);
-    };
-  }, []);
-
   return (
     <>
       <section id="craft" ref={sectionRef} className="craft relative" aria-label={t.craft.label}>
-        <div ref={stageRef} className="craft-stage" data-night="off">
+        <div ref={stageRef} className="craft-stage" data-night="on">
           <div className="craft-sky" aria-hidden="true" />
           <div className="container-page relative grid items-center gap-8 py-24 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14 lg:py-32">
             <div className="relative">

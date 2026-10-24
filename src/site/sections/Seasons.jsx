@@ -9,6 +9,9 @@ import Reveal, { Lines } from '../ui/Reveal.jsx';
 
 const accent = (id) => LOOKS[id]?.swatch?.[0] ?? '#efc57a';
 
+// Small cards on phones crop closer to the house.
+const SCENE_SCALE = typeof window !== 'undefined' && window.innerWidth < 768 ? 1.3 : 1.18;
+
 /**
  * One card per occasion: the same house in that scene. Cards are stills until
  * pointed at (or, on phones, centred), then the effect plays.
@@ -27,7 +30,7 @@ function SceneCard({ item, live, onLive }) {
         <HouseCanvas
           look={item.look}
           animate={live}
-          options={{ focusX: 0.56, focusY: 0.56, scale: 1.18 }}
+          options={{ focusX: 0.56, focusY: 0.56, scale: SCENE_SCALE }}
           className="absolute inset-0 h-full w-full"
         />
       </div>

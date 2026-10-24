@@ -129,14 +129,14 @@ function Slides({ chapters, screens }) {
           <article key={chapter.key} className="app-slide">
             <div className="app-slide-stage" style={{ '--glow': GLOW[chapter.key] }}>
               <span className="app-stage-led" aria-hidden="true" />
-              <Phone screens={[{ src: screens[chapter.key] }]} glow={GLOW[chapter.key]} style={{ '--w': 'min(50vw, 214px)' }} />
+              <Phone screens={[{ src: screens[chapter.key] }]} glow={GLOW[chapter.key]} style={{ '--w': 'min(58vw, 252px)' }} />
             </div>
-            <p className="app-chapter-num mt-6">
+            <p className="app-chapter-num mt-5">
               {String(i + 1).padStart(2, '0')}
               <span> / {String(chapters.length).padStart(2, '0')}</span>
             </p>
-            <h3 className="mt-2 text-[1.55rem] font-semibold leading-[1.1] tracking-[-0.03em]">{chapter.title}</h3>
-            <p className="mt-2.5 text-[15.5px] leading-relaxed text-mist">{chapter.text}</p>
+            <h3 className="mt-2 text-[1.65rem] font-semibold leading-[1.12] tracking-[-0.03em]">{chapter.title}</h3>
+            <p className="mt-2.5 text-[16.5px] leading-relaxed text-mist">{chapter.text}</p>
           </article>
         ))}
       </div>

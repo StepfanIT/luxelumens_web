@@ -414,7 +414,7 @@
 }
 .manifesto-text {
   max-width: 68rem;
-  font-size: clamp(1.95rem, 4.3vw, 4.2rem);
+  font-size: clamp(2rem, 4.3vw, 4.2rem);
   font-weight: 560;
   letter-spacing: -0.04em;
   line-height: 1.1;
@@ -538,8 +538,26 @@
   }
   .scene-cell {
     flex: none;
-    width: 82vw;
+    width: 88vw;
     scroll-snap-align: center;
+  }
+  .scene-card-media {
+    aspect-ratio: 4 / 3;
+  }
+  .scene-card-media::after {
+    height: 16%;
+  }
+  .scene-card-text {
+    padding: 0.25rem 1.25rem 1.35rem;
+  }
+  .scene-card-date {
+    font-size: 12.5px;
+  }
+  .scene-card-name {
+    font-size: 1.45rem;
+  }
+  .scene-card-line {
+    font-size: 15.5px;
   }
   .autopilot {
     max-width: none;
@@ -669,12 +687,12 @@
 }
 .app-slide {
   flex: none;
-  width: min(82vw, 360px);
+  width: min(88vw, 400px);
   scroll-snap-align: center;
 }
 .app-slide-stage {
-  border-radius: 28px;
-  padding: 2.25rem 0 2rem;
+  border-radius: 30px;
+  padding: 2.4rem 0 2.1rem;
 }
 .app-badge {
   display: inline-flex;
@@ -692,9 +710,9 @@
 .craft-stage {
   position: relative;
   overflow: hidden;
-  background: var(--bg, #ede8df);
-  color: var(--fg, #1c1915);
-  --night: 0;
+  background: var(--bg, #050506);
+  color: var(--fg, #f4efe7);
+  --night: 1;
 }
 .craft-sky {
   position: absolute;
@@ -1687,8 +1705,8 @@ a.store-badge:hover {
 }
 .mobile-bar-icon {
   display: grid;
-  height: 52px;
-  width: 52px;
+  height: 54px;
+  width: 54px;
   flex: none;
   place-items: center;
   border-radius: 999px;

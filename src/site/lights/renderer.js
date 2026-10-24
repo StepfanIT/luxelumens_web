@@ -214,10 +214,6 @@ export class HouseRenderer {
       this.comp = makeCanvas(cw, ch);
       this.compCtx = this.comp.getContext('2d');
     }
-    const gw = Math.max(1, Math.round(width / 5));
-    const gh = Math.max(1, Math.round(height / 5));
-    this.glow = makeCanvas(gw, gh);
-    this.glowCtx = this.glow.getContext('2d');
     this.layout();
   }
 
@@ -256,6 +252,16 @@ export class HouseRenderer {
         this.screen[i * 2 + 1] = rect.dy + led.y * sy;
       });
       this.ledPitch = this.geo.pitch * sx;
+      // The glow is painted small and scaled up. Where LEDs sit close together
+      // (small canvases) it needs more resolution, or the halos merge into a
+      // thick blurred band.
+      const glowScale = Math.min(0.5, Math.max(0.2, 1.3 / this.ledPitch));
+      const gw = Math.max(1, Math.round(w * glowScale));
+      const gh = Math.max(1, Math.round(h * glowScale));
+      if (!this.glow || this.glow.width !== gw || this.glow.height !== gh) {
+        this.glow = makeCanvas(gw, gh);
+        this.glowCtx = this.glow.getContext('2d');
+      }
     }
   }
 
@@ -430,10 +436,12 @@ export class HouseRenderer {
     glowCtx.clearRect(0, 0, glow.width, glow.height);
     glowCtx.globalCompositeOperation = 'lighter';
     const glowR = Math.max(0.9, this.ledPitch * gx * 0.75);
+    // Dense LEDs overlap their halos; each one then glows a little less.
+    const glowAlpha = 0.55 * (0.45 + 0.55 * Math.min(1, this.ledPitch / 7));
     for (let i = 0; i < n; i++) {
       const level = levels[i];
       if (level < 0.02) continue;
-      glowCtx.globalAlpha = Math.min(1, level * 0.55);
+      glowCtx.globalAlpha = Math.min(1, level * glowAlpha);
       glowCtx.fillStyle = `rgb(${colors[i * 3] | 0},${colors[i * 3 + 1] | 0},${colors[i * 3 + 2] | 0})`;
       glowCtx.beginPath();
       glowCtx.arc(screen[i * 2] * gx, screen[i * 2 + 1] * gy, glowR, 0, Math.PI * 2);
