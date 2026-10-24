@@ -125,8 +125,8 @@
 /* Hero ------------------------------------------------------------------ */
 .hero {
   position: relative;
-  height: 100vh;
-  height: 100svh;
+  height: calc(100vh - var(--promo-h, 0px));
+  height: calc(100svh - var(--promo-h, 0px));
   min-height: 640px;
   overflow: hidden;
   background: #02040a;
@@ -372,6 +372,33 @@
   border-color: rgba(244, 239, 231, 0.92);
   transform: none;
 }
+/* While the hero plays scenes by itself, the active dot fills like a timer. */
+.look-ring {
+  position: absolute;
+  inset: 0;
+  rotate: -90deg;
+  pointer-events: none;
+}
+.look-ring circle {
+  fill: none;
+  stroke: #efc57a;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 125.7;
+  stroke-dashoffset: 125.7;
+  animation: look-ring linear forwards;
+}
+@keyframes look-ring {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.look-hint {
+  margin-top: 0.55rem;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(244, 239, 231, 0.55);
+}
 
 /* Manifesto ------------------------------------------------------------- */
 .manifesto-glow {
@@ -403,6 +430,14 @@
 }
 
 /* Seasons --------------------------------------------------------------- */
+.seasons {
+  height: calc(var(--steps, 8) * 56vh + 100svh);
+}
+@media (max-width: 767px) {
+  .seasons {
+    height: calc(var(--steps, 8) * 44vh + 100svh);
+  }
+}
 .seasons-stage {
   position: sticky;
   top: 0;
@@ -550,32 +585,60 @@
 }
 
 /* App ------------------------------------------------------------------- */
-.app-sticky {
-  position: sticky;
-  top: max(6rem, calc(50vh - clamp(270px, 23vw, 330px) * 1.08));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.app-halo {
-  position: absolute;
-  left: 50%;
-  top: 46%;
-  height: 120%;
-  width: 150%;
-  translate: -50% -50%;
+/* A lit stage so the black phone reads as a silhouette, not a hole. */
+.app-stage,
+.app-slide-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
   background:
-    radial-gradient(closest-side, var(--glow), transparent 70%),
-    radial-gradient(closest-side, rgba(255, 255, 255, 0.04), transparent);
-  opacity: 0.32;
-  filter: blur(40px);
-  transition: background 1.2s var(--ease-out);
-  pointer-events: none;
+    radial-gradient(75% 55% at 50% 0%, var(--glow), transparent 72%),
+    radial-gradient(60% 40% at 50% 100%, rgba(255, 255, 255, 0.07), transparent 70%),
+    linear-gradient(180deg, #1b1712 0%, #0d0c0a 100%);
+  transition: background 1s var(--ease-out);
+}
+.app-stage::after,
+.app-slide-stage::after {
+  content: '';
+  position: absolute;
+  inset: auto 18% 6% 18%;
+  height: 7%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent);
+  filter: blur(10px);
+}
+.app-stage {
+  --stage-h: min(84vh, 780px);
+  position: sticky;
+  top: calc((100vh - var(--stage-h)) / 2 + 2rem);
+  height: var(--stage-h);
+}
+.app-stage-phone {
+  --w: min(clamp(250px, 21vw, 318px), calc(var(--stage-h) * 0.4));
+  margin-top: -1.5rem;
+}
+.app-stage-led {
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  top: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(90deg, #ffe4b5 0 4px, transparent 4px 13px);
+  filter: drop-shadow(0 0 5px rgba(255, 205, 140, 0.95)) drop-shadow(0 0 14px rgba(255, 180, 90, 0.6));
 }
 .app-progress {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+  translate: -50% 0;
   display: flex;
   gap: 6px;
-  margin-top: 2rem;
 }
 .app-progress span,
 .app-dot {
@@ -630,33 +693,22 @@
   line-height: 1.65;
   color: #a39e96;
 }
-.app-cards {
+.app-slides {
   display: flex;
-  gap: 0.9rem;
+  gap: 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 0 1.25rem 0.5rem;
+  padding: 0 1.25rem 0.25rem;
   scroll-padding: 0 1.25rem;
 }
-.app-card {
-  position: relative;
+.app-slide {
   flex: none;
-  width: min(84vw, 380px);
-  height: 600px;
-  overflow: hidden;
+  width: min(82vw, 360px);
   scroll-snap-align: center;
-  border-radius: 28px;
-  padding: 1.6rem 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    radial-gradient(120% 70% at 50% 100%, var(--glow), transparent 70%),
-    linear-gradient(180deg, #111114, #0a0a0c);
 }
-.app-card-phone {
-  position: absolute;
-  left: 50%;
-  top: 15.5rem;
-  translate: -50% 0;
+.app-slide-stage {
+  border-radius: 28px;
+  padding: 2.25rem 0 2rem;
 }
 .app-badge {
   display: inline-flex;
@@ -672,7 +724,13 @@
 
 /* Craft (day → night) -------------------------------------------------- */
 .craft {
+  height: 220vh;
   background: var(--bg, #ede8df);
+}
+@media (max-width: 767px) {
+  .craft {
+    height: 185vh;
+  }
 }
 .craft-stage {
   position: sticky;
@@ -850,6 +908,20 @@
   font-weight: 600;
   color: var(--fg);
 }
+@media (max-width: 639px) {
+  .craft-legend {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.9rem;
+    margin-top: 0.9rem;
+    font-size: 12.5px;
+    line-height: 1.3;
+  }
+  .craft-legend li span {
+    height: 1.3rem;
+    width: 1.3rem;
+    font-size: 10.5px;
+  }
+}
 @media (min-width: 640px) {
   .craft-legend {
     grid-template-columns: 1fr 1fr;
@@ -857,7 +929,7 @@
 }
 @media (max-width: 1023px) {
   .eave {
-    max-height: 38vh;
+    max-height: 33vh;
   }
   .craft-text {
     font-size: 1rem;
@@ -1552,6 +1624,142 @@
 @media (min-width: 1100px) {
   .reviews {
     columns: 3;
+  }
+}
+
+.photo-drop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 14px;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  padding: 0.7rem 1rem;
+  font-size: 14px;
+  color: rgba(244, 239, 231, 0.85);
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
+}
+.photo-drop:hover {
+  border-color: rgba(239, 197, 122, 0.7);
+  background: rgba(239, 197, 122, 0.06);
+}
+
+/* Promo countdown ------------------------------------------------------- */
+.promo {
+  position: relative;
+  z-index: 55;
+  height: 40px;
+  font-size: 13px;
+  color: rgba(244, 239, 231, 0.85);
+  background:
+    linear-gradient(90deg, rgba(231, 180, 100, 0.06), rgba(231, 180, 100, 0.16), rgba(231, 180, 100, 0.06)),
+    #0b0a08;
+  border-bottom: 1px solid rgba(231, 180, 100, 0.22);
+}
+.promo-led {
+  height: 6px;
+  width: 6px;
+  flex: none;
+  border-radius: 999px;
+  background: #efc57a;
+  box-shadow: 0 0 10px 2px rgba(239, 197, 122, 0.7);
+  animation: led-breathe 2.4s ease-in-out infinite;
+}
+.promo-cta {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+  color: #f6dba6;
+  white-space: nowrap;
+}
+.promo-cta:hover {
+  color: #fff;
+}
+.promo-close {
+  display: grid;
+  height: 1.75rem;
+  width: 1.75rem;
+  flex: none;
+  place-items: center;
+  border-radius: 999px;
+  color: rgba(244, 239, 231, 0.6);
+}
+.promo-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* Store badges ---------------------------------------------------------- */
+.store-badge {
+  display: inline-flex;
+  height: 52px;
+  align-items: center;
+  gap: 0.65rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: #000;
+  padding: 0 1.15rem 0 0.95rem;
+  color: #f4efe7;
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
+}
+a.store-badge:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: #0c0c0d;
+}
+.store-badge.is-soon {
+  cursor: default;
+  opacity: 0.78;
+}
+
+/* Mobile action bar ----------------------------------------------------- */
+.mobile-bar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 45;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(5, 5, 6, 0), rgba(5, 5, 6, 0.92) 30%);
+  transform: translateY(110%);
+  transition: transform 0.5s var(--ease-out);
+}
+.mobile-bar.is-shown {
+  transform: none;
+}
+.mobile-bar-icon {
+  display: grid;
+  height: 52px;
+  width: 52px;
+  flex: none;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(20, 20, 23, 0.9);
+  color: #efc57a;
+}
+
+/* Consent --------------------------------------------------------------- */
+.consent {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  z-index: 70;
+  max-width: 26rem;
+  border-radius: 20px;
+  padding: 1rem;
+  animation: dialog-in 0.5s var(--ease-out);
+}
+@media (min-width: 640px) {
+  .consent {
+    left: 1.25rem;
+    right: auto;
+    bottom: 1.25rem;
   }
 }
 }

@@ -99,10 +99,10 @@ export default function Craft() {
 
   return (
     <>
-      <section id="craft" ref={sectionRef} className="craft relative" style={{ height: '220vh' }} aria-label={t.craft.label}>
+      <section id="craft" ref={sectionRef} className="craft relative" aria-label={t.craft.label}>
         <div ref={stageRef} className="craft-stage" data-night="off">
           <div className="craft-sky" aria-hidden="true" />
-          <div className="container-page relative grid h-full items-center gap-8 pb-8 pt-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14 lg:py-0">
+          <div className="container-page relative grid h-full items-center gap-6 pb-24 pt-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14 lg:py-0">
             <div className="relative">
               <Eyebrow tone="light" className="craft-eyebrow">
                 {t.craft.label}

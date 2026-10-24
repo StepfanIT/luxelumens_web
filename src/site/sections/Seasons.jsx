@@ -6,7 +6,6 @@ import { LOOKS } from '../lights/looks.js';
 import { stickyProgress, useScrollFrame } from '../motion.js';
 import { Eyebrow } from '../ui/Button.jsx';
 
-const STEP_VH = 56;
 
 /** Text gradient in the look's own colours. */
 function lookText(id) {
@@ -64,7 +63,7 @@ export default function Seasons() {
       id="seasons"
       ref={sectionRef}
       className="seasons relative"
-      style={{ height: `calc(${items.length * STEP_VH}vh + 100svh)` }}
+      style={{ '--steps': items.length }}
       aria-label={t.seasons.title}
     >
       <div className="seasons-stage">
@@ -75,7 +74,7 @@ export default function Seasons() {
         />
         <div className="seasons-shade" aria-hidden="true" />
 
-        <div className="container-page relative z-[1] flex h-full flex-col pb-8 pt-24 md:pb-10 md:pt-28">
+        <div className="container-page relative z-[1] flex h-full flex-col pb-24 pt-24 md:pb-10 md:pt-28">
           <div className="max-w-xl">
             <Eyebrow>{t.seasons.label}</Eyebrow>
             <h2 className="display mt-4 text-[clamp(2rem,4.2vw,3.7rem)]">{t.seasons.title}</h2>

@@ -1,13 +1,28 @@
-import { Copy, Download, Inbox, Mail, MessageCircle, Phone, Search, Trash2, X } from 'lucide-react';
+import { Copy, Download, ImageIcon, Inbox, Mail, MessageCircle, Phone, Search, Trash2, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { BUILDINGS, STATUSES } from '../schema.js';
+import { BUILDINGS, STATUSES, WHENS } from '../schema.js';
 import { Badge, Button, Card, Spinner, TextInput, fullTime, relativeTime, useToast } from '../ui.jsx';
 
 const statusOf = (key) => STATUSES.find((status) => status.key === key) ?? STATUSES[0];
 const digits = (phone) => String(phone ?? '').replace(/[^\d+]/g, '');
 
 function exportCsv(leads) {
-  const header = ['Data', 'Imię', 'Telefon', 'E-mail', 'Miejscowość', 'Budynek', 'Długość okapów (m)', 'Wiadomość', 'Status', 'Notatki', 'Język'];
+  const header = [
+    'Data',
+    'Imię',
+    'Telefon',
+    'E-mail',
+    'Miejscowość',
+    'Budynek',
+    'Długość okapów (m)',
+    'Kiedy',
+    'Wiadomość',
+    'Status',
+    'Notatki',
+    'Źródło',
+    'Zdjęcie',
+    'Język',
+  ];
   const rows = leads.map((lead) => [
     fullTime(lead.createdAt),
     lead.name,
@@ -16,9 +31,12 @@ function exportCsv(leads) {
     lead.city,
     BUILDINGS[lead.building] ?? lead.building,
     lead.length || '',
+    WHENS[lead.when] ?? '',
     lead.message,
     statusOf(lead.status).label,
     lead.notes,
+    lead.source,
+    lead.photo ? 'tak' : '',
     lead.lang,
   ]);
   const cell = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
@@ -125,9 +143,24 @@ function LeadDrawer({ lead, store, onClose }) {
             <dd className="select-all">{lead.phone}</dd>
             <dt className="text-mist">E-mail</dt>
             <dd className="select-all break-all">{lead.email || '—'}</dd>
+            <dt className="text-mist">Kiedy montaż</dt>
+            <dd>{WHENS[lead.when] ?? '—'}</dd>
+            <dt className="text-mist">Źródło</dt>
+            <dd className="break-words">{lead.source || 'wejście bezpośrednie'}</dd>
             <dt className="text-mist">Język strony</dt>
             <dd>{lead.lang === 'en' ? 'angielski' : 'polski'}</dd>
           </dl>
+
+          {lead.photo?.startsWith('data:image/') && (
+            <div>
+              <p className="a-label">Zdjęcie domu</p>
+              <img src={lead.photo} alt={`Dom: ${lead.name}`} className="max-h-72 w-full rounded-xl object-cover ring-1 ring-white/10" />
+              <a href={lead.photo} download={`dom-${lead.name.replace(/\s+/g, '-').toLowerCase()}.${lead.photo.startsWith('data:image/webp') ? 'webp' : 'jpg'}`} className="a-btn a-btn-secondary a-btn-sm mt-2">
+                <Download className="h-4 w-4" />
+                Pobierz zdjęcie
+              </a>
+            </div>
+          )}
 
           {lead.message && (
             <div>
@@ -291,7 +324,10 @@ export default function Leads({ store }) {
                     <span className="flex min-w-0 items-center gap-3">
                       <span className={`h-2 w-2 shrink-0 rounded-full ${lead.status === 'new' ? 'bg-gold-300 shadow-[0_0_10px_rgba(239,197,122,0.9)]' : 'bg-white/15'}`} />
                       <span className="min-w-0">
-                        <span className="block truncate font-medium">{lead.name}</span>
+                        <span className="flex items-center gap-1.5 truncate font-medium">
+                          {lead.name}
+                          {lead.photo && <ImageIcon className="h-3.5 w-3.5 shrink-0 text-gold-300" aria-label="ze zdjęciem" />}
+                        </span>
                         <span className="block truncate text-sm text-mist md:hidden">
                           {lead.phone} · {lead.city}
                         </span>

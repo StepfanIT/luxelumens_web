@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { copy, defaultCompany, defaultContacts } from './copy.js';
+import { copy, defaultCompany, defaultContacts, defaultMarketing } from './copy.js';
 import { mergeContent } from '../shared/merge.js';
 import { fetchSiteContent } from '../shared/firestore-rest.js';
 
@@ -44,6 +44,7 @@ export function ContentProvider({ lang, children }) {
       contacts: mergeContent(defaultContacts, remote?.contacts),
       company: mergeContent(defaultCompany, remote?.company),
       reviews: Array.isArray(remote?.reviews) ? remote.reviews.filter((review) => review?.name && (review.textPl || review.textEn)) : [],
+      marketing: mergeContent(defaultMarketing, remote?.marketing),
     }),
     [lang, remote],
   );
@@ -51,6 +52,15 @@ export function ContentProvider({ lang, children }) {
 }
 
 export const useContent = () => useContext(ContentContext);
+
+/** Store links once the app is published; null while it is not. */
+export function storeLinks(contacts) {
+  const ok = (url, host) => (new RegExp(`^https://(${host})/`, 'i').test(String(url ?? '').trim()) ? url.trim() : null);
+  return {
+    apple: ok(contacts.appStore, 'apps\\.apple\\.com'),
+    google: ok(contacts.googlePlay, 'play\\.google\\.com'),
+  };
+}
 
 /** Links for the contacts the admin filled in; anything malformed is skipped. */
 export function contactLinks(contacts) {

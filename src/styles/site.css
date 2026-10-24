@@ -163,14 +163,30 @@
     width: var(--w);
     padding: calc(var(--w) * 0.012);
     border-radius: calc(var(--w) * 0.158);
-    background: linear-gradient(140deg, #6a6a71 0%, #2a2a2f 16%, #141417 42%, #1d1d21 64%, #4b4b52 88%, #7a7a82 100%);
+    background: linear-gradient(140deg, #9a9aa3 0%, #45454c 12%, #1e1e22 38%, #29292e 62%, #64646c 86%, #a9a9b2 100%);
     box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.28),
       inset 0 0 calc(var(--w) * 0.008) rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(0, 0, 0, 0.6),
       0 calc(var(--w) * 0.015) calc(var(--w) * 0.03) rgba(0, 0, 0, 0.45),
       0 calc(var(--w) * 0.16) calc(var(--w) * 0.32) calc(var(--w) * -0.06) rgba(0, 0, 0, 0.85);
     isolation: isolate;
     flex: none;
+  }
+  /* Rim light along the frame, brightest where light comes from above. */
+  .phone::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.08) 28%, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0.3) 100%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
   .phone::before {
     content: '';
@@ -179,7 +195,7 @@
     z-index: -1;
     background: radial-gradient(closest-side, var(--glow, rgba(231, 180, 100, 0.55)), transparent 72%);
     filter: blur(calc(var(--w) * 0.1));
-    opacity: 0.55;
+    opacity: 0.8;
     transition: background 1s var(--ease-out);
     pointer-events: none;
   }

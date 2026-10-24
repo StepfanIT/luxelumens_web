@@ -2,10 +2,12 @@ import { X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { useContent } from '../content.jsx';
 import { lockScroll } from '../motion.js';
+import { trackingTools } from '../tracking.js';
 
 /** The privacy notice for the quote form, filled with the company's details. */
 export default function Privacy({ open, onClose }) {
-  const { t, company, contacts } = useContent();
+  const { t, lang, company, contacts, marketing } = useContent();
+  const tools = trackingTools(marketing);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -52,7 +54,11 @@ export default function Privacy({ open, onClose }) {
           {t.privacy.sections.map((section) => (
             <section key={section.h}>
               <h3 className="font-medium text-cream">{section.h}</h3>
-              <p className="mt-1.5 leading-relaxed text-mist">{fill(section.p)}</p>
+              <p className="mt-1.5 leading-relaxed text-mist">
+                {section.id === 'cookies' && tools.length
+                  ? t.privacy.cookiesTracking.replace('{tools}', tools.join(lang === 'pl' ? ' i ' : ' and '))
+                  : fill(section.p)}
+              </p>
             </section>
           ))}
         </div>

@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import { useContent } from '../content.jsx';
 import { passProgress, useScrollFrame } from '../motion.js';
-import { Eyebrow } from '../ui/Button.jsx';
+import { Eyebrow, PrimaryButton } from '../ui/Button.jsx';
 import Reveal, { Lines } from '../ui/Reveal.jsx';
+import { goTo } from './Nav.jsx';
 
 /** Four steps on a line of light that fills in as the visitor reads. */
 export default function Process() {
@@ -42,6 +43,12 @@ export default function Process() {
             </li>
           ))}
         </ol>
+        <Reveal className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center md:mt-20">
+          <PrimaryButton href="#quote" onClick={goTo('quote')}>
+            {t.process.cta}
+          </PrimaryButton>
+          <p className="text-mist">{t.process.ctaNote}</p>
+        </Reveal>
       </div>
     </section>
   );

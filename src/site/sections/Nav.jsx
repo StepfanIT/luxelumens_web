@@ -1,9 +1,10 @@
 import { Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { contactLinks, useContent } from '../content.jsx';
 import { lockScroll, scrollToId, useScrollFrame } from '../motion.js';
 import Logo from '../ui/Logo.jsx';
 import { PrimaryButton } from '../ui/Button.jsx';
+import StoreBadges from '../ui/StoreBadges.jsx';
 
 export const NAV_TARGETS = ['process', 'app', 'craft', 'faq'];
 
@@ -44,7 +45,13 @@ export default function Nav() {
   const { t, contacts } = useContent();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  useScrollFrame((y) => setScrolled(y > 24));
+  const headerRef = useRef(null);
+  useScrollFrame((y) => {
+    setScrolled(y > 24);
+    // Sit under the promo bar at the top, then slide up with the page.
+    const promo = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--promo-h')) || 0;
+    if (headerRef.current) headerRef.current.style.top = `${Math.max(0, promo - y)}px`;
+  });
 
   useEffect(() => {
     lockScroll(open);
@@ -58,36 +65,39 @@ export default function Nav() {
   const close = () => setOpen(false);
 
   return (
-    <header className={`site-nav ${scrolled ? 'is-scrolled' : ''}`}>
-      <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[72px]">
-        <a href="#top" onClick={goTo('top')} aria-label="Luxe Lumens" className="shrink-0">
-          <Logo />
-        </a>
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
-          {NAV_TARGETS.map((id) => (
-            <a key={id} href={`#${id}`} onClick={goTo(id)} className="nav-link">
-              {labels[id]}
-            </a>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <LanguageSwitch className="hidden sm:flex" />
-          <PrimaryButton href="#quote" onClick={goTo('quote')} className="nav-cta hidden sm:inline-flex">
-            {t.nav.quote}
-          </PrimaryButton>
-          <button
-            type="button"
-            className="menu-button lg:hidden"
-            onClick={() => setOpen(true)}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={t.nav.menu}
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+    <>
+      <header ref={headerRef} className={`site-nav ${scrolled ? 'is-scrolled' : ''}`}>
+        <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[72px]">
+          <a href="#top" onClick={goTo('top')} aria-label="Luxe Lumens" className="shrink-0">
+            <Logo />
+          </a>
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+            {NAV_TARGETS.map((id) => (
+              <a key={id} href={`#${id}`} onClick={goTo(id)} className="nav-link">
+                {labels[id]}
+              </a>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <LanguageSwitch className="hidden sm:flex" />
+            <PrimaryButton href="#quote" onClick={goTo('quote')} className="nav-cta hidden sm:inline-flex">
+              {t.nav.quote}
+            </PrimaryButton>
+            <button
+              type="button"
+              className="menu-button lg:hidden"
+              onClick={() => setOpen(true)}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={t.nav.menu}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
+      {/* Outside the header: its backdrop-filter would trap a fixed overlay. */}
       <div id="mobile-menu" className={`mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open} data-lenis-prevent>
         <div className="container-page flex h-16 items-center justify-between">
           <Logo />
@@ -110,6 +120,7 @@ export default function Nav() {
           ))}
         </nav>
         <div className="container-page mt-auto pb-10">
+          <StoreBadges className="mb-6" />
           <PrimaryButton href="#quote" onClick={goTo('quote', close)} className="w-full justify-between" tabIndex={open ? 0 : -1}>
             {t.nav.quote}
           </PrimaryButton>
@@ -125,6 +136,6 @@ export default function Nav() {
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }

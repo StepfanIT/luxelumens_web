@@ -1,4 +1,4 @@
-import { ExternalLink, FileText, Images, Inbox, LogOut, MessageSquareQuote, Phone, ShieldCheck } from 'lucide-react';
+import { ExternalLink, FileText, Images, Inbox, LogOut, Megaphone, MessageSquareQuote, Phone, ShieldCheck } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { emulatorHost, hasFirebaseConfig } from '../shared/firebase.js';
 import { LogoMark } from '../site/ui/Logo.jsx';
@@ -7,6 +7,7 @@ import Contacts from './pages/Contacts.jsx';
 import Content from './pages/Content.jsx';
 import Gallery from './pages/Gallery.jsx';
 import Leads from './pages/Leads.jsx';
+import Marketing from './pages/Marketing.jsx';
 import Reviews from './pages/Reviews.jsx';
 import { demoStore } from './store/demo.js';
 import { Button, Card, Spinner, TextInput, ToastProvider } from './ui.jsx';
@@ -16,7 +17,8 @@ const PAGES = [
   { id: 'content', label: 'Treści strony', icon: FileText, Page: Content },
   { id: 'gallery', label: 'Realizacje', icon: Images, Page: Gallery },
   { id: 'reviews', label: 'Opinie', icon: MessageSquareQuote, Page: Reviews },
-  { id: 'contacts', label: 'Kontakt i firma', icon: Phone, Page: Contacts },
+  { id: 'marketing', label: 'Marketing', icon: Megaphone, Page: Marketing },
+  { id: 'contacts', label: 'Kontakt i aplikacja', icon: Phone, Page: Contacts },
   { id: 'access', label: 'Dostęp', icon: ShieldCheck, Page: Access },
 ];
 

@@ -1,12 +1,15 @@
-import { ArrowRight, Check, Loader2, Mail, MessageCircle, Phone as PhoneIcon } from 'lucide-react';
+import { ArrowRight, Camera, Check, Loader2, Mail, MessageCircle, Phone as PhoneIcon, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import onUrl from '../../assets/house/on.webp';
 import { submitLead } from '../../shared/firestore-rest.js';
+import { preparePhoto } from '../../shared/photo.js';
 import { contactLinks, useContent } from '../content.jsx';
+import { trackLead, visitSource } from '../tracking.js';
 import { Eyebrow } from '../ui/Button.jsx';
 import Reveal, { Lines } from '../ui/Reveal.jsx';
 
 const BUILDINGS = ['house', 'terraced', 'business', 'other'];
+const WHENS = ['holidays', 'month', 'flexible'];
 const ICONS = { phone: PhoneIcon, whatsapp: MessageCircle, email: Mail };
 
 export function DirectContacts({ className = '' }) {
@@ -35,7 +38,19 @@ export function DirectContacts({ className = '' }) {
   );
 }
 
-const empty = { name: '', phone: '', email: '', city: '', building: 'house', length: 40, lengthUnknown: false, message: '', consent: false, website: '' };
+const empty = {
+  name: '',
+  phone: '',
+  email: '',
+  city: '',
+  building: 'house',
+  when: '',
+  length: 40,
+  lengthUnknown: false,
+  message: '',
+  consent: false,
+  website: '',
+};
 
 function validate(values, f) {
   const errors = {};
@@ -75,6 +90,22 @@ export default function Quote({ onPrivacy }) {
   const [status, setStatus] = useState('idle');
   const openedAt = useRef(Date.now());
   const formRef = useRef(null);
+  const fileRef = useRef(null);
+  const [photo, setPhoto] = useState(null);
+  const [photoBusy, setPhotoBusy] = useState(false);
+  const [photoError, setPhotoError] = useState('');
+
+  const addPhoto = async (file) => {
+    if (!file) return;
+    setPhotoBusy(true);
+    setPhotoError('');
+    try {
+      setPhoto(await preparePhoto(file, { maxSide: 1280, maxChars: 450_000 }));
+    } catch {
+      setPhotoError(f.photoError);
+    }
+    setPhotoBusy(false);
+  };
 
   const set = (key) => (event) => {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
@@ -106,11 +137,15 @@ export default function Quote({ onPrivacy }) {
         building: values.building,
         length: values.lengthUnknown ? 0 : Number(values.length),
         message: values.message.trim().slice(0, 2000),
+        when: values.when,
+        source: visitSource(),
+        ...(photo ? { photo: photo.image } : {}),
         lang,
         consent: true,
         status: 'new',
       });
       setStatus('sent');
+      trackLead();
     } catch {
       setStatus('error');
     }
@@ -118,6 +153,7 @@ export default function Quote({ onPrivacy }) {
 
   const reset = () => {
     setValues(empty);
+    setPhoto(null);
     setErrors({});
     setStatus('idle');
     openedAt.current = Date.now();
@@ -197,6 +233,58 @@ export default function Quote({ onPrivacy }) {
                   ))}
                 </div>
               </fieldset>
+
+              <fieldset className="field">
+                <legend className="field-label">
+                  {f.when}
+                  <span className="text-mist/70"> · {f.optional}</span>
+                </legend>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {WHENS.map((key) => (
+                    <button
+                      key={key}
+                      type="button"
+                      className={`chip ${values.when === key ? 'is-active' : ''}`}
+                      aria-pressed={values.when === key}
+                      onClick={() => setValues((current) => ({ ...current, when: current.when === key ? '' : key }))}
+                    >
+                      {f.whens[key]}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <div className="field">
+                <p className="field-label">
+                  {f.photo}
+                  <span className="text-mist/70"> · {f.optional}</span>
+                </p>
+                {photo ? (
+                  <div className="mt-2 flex items-center gap-3">
+                    <img src={photo.image} alt="" className="h-16 w-24 rounded-xl object-cover ring-1 ring-white/15" />
+                    <button type="button" onClick={() => setPhoto(null)} className="inline-flex items-center gap-1.5 text-sm text-mist hover:text-cream">
+                      <X className="h-4 w-4" />
+                      {f.photoRemove}
+                    </button>
+                  </div>
+                ) : (
+                  <button type="button" onClick={() => fileRef.current?.click()} className="photo-drop mt-2" disabled={photoBusy}>
+                    {photoBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
+                    {f.photoAdd}
+                  </button>
+                )}
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  onChange={(event) => {
+                    addPhoto(event.target.files?.[0]);
+                    event.target.value = '';
+                  }}
+                />
+                {photoError ? <p className="field-error">{photoError}</p> : !photo && <p className="field-hint">{f.photoHint}</p>}
+              </div>
 
               <div className="field">
                 <div className="flex items-baseline justify-between gap-3">

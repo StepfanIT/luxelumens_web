@@ -17,6 +17,19 @@ export const SECTIONS = [
       f('hero.lead', 'Opis pod nagłówkiem', true),
       f('hero.cta', 'Przycisk główny'),
       f('hero.cta2', 'Przycisk drugi'),
+      f('hero.hint', 'Podpowiedź pod kolorami scen'),
+    ],
+    lists: [{ path: 'highlights', label: 'Zalety pod pierwszym ekranem', fixed: true, item: [{ key: null, label: 'Tekst' }] }],
+  },
+  {
+    id: 'promo',
+    title: 'Pasek odliczania',
+    hint: '{days} i {holiday} wstawiają się same. Włączanie i wyłączanie: zakładka Marketing.',
+    fields: [
+      f('promo.text', 'Tekst na komputerze'),
+      f('promo.short', 'Tekst na telefonie'),
+      f('promo.cta', 'Przycisk'),
+      f('promo.ctaShort', 'Przycisk na telefonie'),
     ],
   },
   {
@@ -56,6 +69,7 @@ export const SECTIONS = [
       f('app.title1', 'Nagłówek — pierwsza linia'),
       f('app.title2', 'Nagłówek — druga linia (kursywa)'),
       f('app.lead', 'Opis', true),
+      f('app.stores.note', 'Zdanie pod przyciskami sklepów'),
     ],
     lists: [
       {
@@ -103,6 +117,8 @@ export const SECTIONS = [
       f('compare.title', 'Nagłówek'),
       f('compare.them', 'Kolumna: lampki sezonowe'),
       f('compare.us', 'Kolumna: Luxe Lumens'),
+      f('compare.cta', 'Przycisk pod tabelą'),
+      f('compare.ctaNote', 'Tekst obok przycisku'),
     ],
     lists: [
       {
@@ -120,7 +136,12 @@ export const SECTIONS = [
   {
     id: 'process',
     title: 'Jak to działa',
-    fields: [f('process.label', 'Etykieta'), f('process.title', 'Nagłówek')],
+    fields: [
+      f('process.label', 'Etykieta'),
+      f('process.title', 'Nagłówek'),
+      f('process.cta', 'Przycisk pod krokami'),
+      f('process.ctaNote', 'Tekst obok przycisku'),
+    ],
     lists: [
       {
         path: 'process.steps',
@@ -131,6 +152,17 @@ export const SECTIONS = [
           { key: 'text', label: 'Opis', long: true },
         ],
       },
+    ],
+  },
+  {
+    id: 'proof',
+    title: 'Realizacje i opinie (nagłówki)',
+    hint: 'Same zdjęcia i opinie dodajesz w zakładkach Realizacje i Opinie.',
+    fields: [
+      f('gallery.label', 'Realizacje — etykieta'),
+      f('gallery.title', 'Realizacje — nagłówek'),
+      f('reviews.label', 'Opinie — etykieta'),
+      f('reviews.title', 'Opinie — nagłówek'),
     ],
   },
   {
@@ -182,6 +214,11 @@ export const CONTACT_FIELDS = [
   { key: 'facebook', label: 'Facebook (pełny link)', placeholder: 'https://facebook.com/luxelumens', type: 'url' },
 ];
 
+export const APP_FIELDS = [
+  { key: 'appStore', label: 'App Store (link do aplikacji)', placeholder: 'https://apps.apple.com/pl/app/…', type: 'url' },
+  { key: 'googlePlay', label: 'Google Play (link do aplikacji)', placeholder: 'https://play.google.com/store/apps/details?id=…', type: 'url' },
+];
+
 export const COMPANY_FIELDS = [
   { key: 'name', label: 'Nazwa firmy', placeholder: 'Luxe Lumens Sp. z o.o.' },
   { key: 'address', label: 'Adres', placeholder: 'ul. Przykładowa 1, 30-001 Kraków' },
@@ -198,3 +235,5 @@ export const STATUSES = [
 ];
 
 export const BUILDINGS = { house: 'Dom', terraced: 'Bliźniak / szeregowiec', business: 'Firma', other: 'Inny' };
+
+export const WHENS = { holidays: 'Przed świętami', month: 'W ciągu miesiąca', flexible: 'Bez pośpiechu' };

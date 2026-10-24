@@ -28,6 +28,22 @@ export const copy = {
       tryIt: 'Wypróbuj sceny',
       scroll: 'Przewiń',
       alt: 'Nowoczesny dom nocą z linią LED pod okapami. Kolor światła zmienia się po wybraniu sceny.',
+      hint: 'Dotknij koloru, aby zmienić scenę',
+    },
+    highlights: ['5 lat gwarancji', 'Bezpłatna wycena ze zdjęcia', 'Montaż przez nasz zespół', 'Sterowanie z telefonu'],
+    promo: {
+      text: 'Do {holiday} zostało {days} dni. Zamów wycenę z wyprzedzeniem.',
+      short: '{days} dni do {holiday}',
+      cta: 'Bezpłatna wycena',
+      ctaShort: 'Wycena',
+      close: 'Zamknij',
+      holidays: {
+        christmas: 'Bożego Narodzenia',
+        halloween: 'Halloween',
+        valentine: 'Walentynek',
+        easter: 'Wielkanocy',
+        independence: 'Święta Niepodległości',
+      },
     },
     looks: {
       warm: 'Ciepła biel',
@@ -125,6 +141,12 @@ export const copy = {
         },
       ],
       badges: ['Bluetooth i domowe Wi-Fi', 'Sterowanie bez internetu', 'Dostęp dla domowników'],
+      stores: {
+        soon: 'Wkrótce w',
+        apple: 'Pobierz w',
+        google: 'Pobierz z',
+        note: 'Aplikację konfigurujemy razem z Tobą przy montażu.',
+      },
     },
     craft: {
       label: 'Wykonanie',
@@ -199,6 +221,8 @@ export const copy = {
           text: 'Konfigurujemy aplikację i pokazujemy sceny, harmonogramy i Autopilota. Od tego wieczoru dom świeci po Twojemu.',
         },
       ],
+      cta: 'Zacznij od zdjęcia domu',
+      ctaNote: 'Wycena jest bezpłatna i do niczego nie zobowiązuje.',
     },
     faq: {
       label: 'Pytania',
@@ -255,6 +279,13 @@ export const copy = {
         lengthHint: 'Wystarczy z grubsza — dokładnie zmierzymy przy wycenie.',
         lengthUnknown: 'Nie wiem',
         meters: 'm',
+        when: 'Kiedy chcesz montaż?',
+        whens: { holidays: 'Przed świętami', month: 'W ciągu miesiąca', flexible: 'Bez pośpiechu' },
+        photo: 'Zdjęcie domu',
+        photoHint: 'Przyspieszy wycenę — wystarczy zdjęcie z telefonu.',
+        photoAdd: 'Dodaj zdjęcie',
+        photoRemove: 'Usuń zdjęcie',
+        photoError: 'Nie udało się dodać zdjęcia — spróbuj innego.',
         message: 'Wiadomość',
         messagePlaceholder: 'Np. chcemy podświetlić dom i garaż, najlepiej przed świętami.',
         consent: 'Zgadzam się na kontakt w sprawie wyceny. Dane wykorzystamy tylko w tym celu —',
@@ -279,6 +310,14 @@ export const copy = {
       instagram: 'Instagram',
       facebook: 'Facebook',
     },
+    consent: {
+      text: 'Za Twoją zgodą używamy plików cookie do statystyk odwiedzin i mierzenia reklam.',
+      accept: 'Akceptuję',
+      reject: 'Odrzucam',
+      more: 'Polityka prywatności',
+      settings: 'Ustawienia cookies',
+    },
+    mobileBar: { quote: 'Bezpłatna wycena', call: 'Zadzwoń', whatsapp: 'Napisz na WhatsApp' },
     footer: {
       tagline: 'Stałe oświetlenie LED elewacji sterowane z telefonu.',
       area: 'Montaż na terenie Polski',
@@ -297,7 +336,7 @@ export const copy = {
         },
         {
           h: 'Jakie dane i po co',
-          p: 'Imię, numer telefonu, opcjonalnie e-mail, miejscowość, informacje o budynku i treść wiadomości. Wykorzystujemy je wyłącznie po to, by odpowiedzieć na zapytanie i przygotować wycenę (art. 6 ust. 1 lit. b RODO — działania przed zawarciem umowy).',
+          p: 'Imię, numer telefonu, opcjonalnie e-mail i zdjęcie domu, miejscowość, informacje o budynku, treść wiadomości oraz to, skąd trafiłeś na stronę (np. z reklamy). Wykorzystujemy je wyłącznie po to, by odpowiedzieć na zapytanie i przygotować wycenę (art. 6 ust. 1 lit. b RODO — działania przed zawarciem umowy).',
         },
         {
           h: 'Jak długo',
@@ -312,10 +351,13 @@ export const copy = {
           p: 'Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i wniesienia sprzeciwu, a także skargi do Prezesa Urzędu Ochrony Danych Osobowych. Podanie danych jest dobrowolne, ale bez nich nie przygotujemy wyceny.',
         },
         {
+          id: 'cookies',
           h: 'Pliki cookie',
           p: 'Strona nie używa plików cookie ani narzędzi śledzących.',
         },
       ],
+      cookiesTracking:
+        'Za Twoją zgodą strona używa {tools} do statystyk odwiedzin i mierzenia skuteczności reklam. Bez zgody nie używamy żadnych plików cookie ani narzędzi śledzących. Decyzję zmienisz w „Ustawieniach cookies” na dole strony.',
     },
   },
 
@@ -344,6 +386,22 @@ export const copy = {
       tryIt: 'Try the scenes',
       scroll: 'Scroll',
       alt: 'A modern house at night with an LED line under its eaves. The light changes colour when you pick a scene.',
+      hint: 'Tap a colour to change the scene',
+    },
+    highlights: ['5-year warranty', 'Free quote from a photo', 'Installed by our own team', 'Controlled from your phone'],
+    promo: {
+      text: '{days} days to {holiday}. Get your quote early.',
+      short: '{days} days to {holiday}',
+      cta: 'Free quote',
+      ctaShort: 'Quote',
+      close: 'Close',
+      holidays: {
+        christmas: 'Christmas',
+        halloween: 'Halloween',
+        valentine: "Valentine's Day",
+        easter: 'Easter',
+        independence: 'Independence Day',
+      },
     },
     looks: {
       warm: 'Warm white',
@@ -441,6 +499,12 @@ export const copy = {
         },
       ],
       badges: ['Bluetooth and home Wi-Fi', 'Works without internet', 'Access for your family'],
+      stores: {
+        soon: 'Coming soon to',
+        apple: 'Download on the',
+        google: 'Get it on',
+        note: 'We set the app up with you on installation day.',
+      },
     },
     craft: {
       label: 'Craft',
@@ -510,6 +574,8 @@ export const copy = {
           text: 'We set up the app and show you scenes, schedules and Autopilot. From that evening on, your house glows your way.',
         },
       ],
+      cta: 'Start with a photo of your house',
+      ctaNote: 'The quote is free and without obligation.',
     },
     faq: {
       label: 'FAQ',
@@ -566,6 +632,13 @@ export const copy = {
         lengthHint: 'A rough guess is fine — we measure properly for the quote.',
         lengthUnknown: "I don't know",
         meters: 'm',
+        when: 'When would you like it installed?',
+        whens: { holidays: 'Before the holidays', month: 'Within a month', flexible: 'No rush' },
+        photo: 'Photo of your house',
+        photoHint: 'Speeds up the quote — a phone photo is enough.',
+        photoAdd: 'Add a photo',
+        photoRemove: 'Remove photo',
+        photoError: 'That photo could not be added — try another one.',
         message: 'Message',
         messagePlaceholder: 'E.g. we would like the house and the garage lit, ideally before Christmas.',
         consent: 'I agree to be contacted about the quote. We use your details only for that —',
@@ -590,6 +663,14 @@ export const copy = {
       instagram: 'Instagram',
       facebook: 'Facebook',
     },
+    consent: {
+      text: 'With your consent we use cookies for visit statistics and ad measurement.',
+      accept: 'Accept',
+      reject: 'Decline',
+      more: 'Privacy policy',
+      settings: 'Cookie settings',
+    },
+    mobileBar: { quote: 'Free quote', call: 'Call', whatsapp: 'Message on WhatsApp' },
     footer: {
       tagline: 'Permanent LED facade lighting, controlled from your phone.',
       area: 'Installations across Poland',
@@ -608,7 +689,7 @@ export const copy = {
         },
         {
           h: 'What we collect and why',
-          p: 'Your name, phone number, optionally your email, town, details about the building and your message. We use them only to answer your request and prepare a quote (Art. 6(1)(b) GDPR — steps taken before entering into a contract).',
+          p: 'Your name, phone number, optionally your email and a photo of the house, town, details about the building, your message and how you found the site (for example an ad). We use them only to answer your request and prepare a quote (Art. 6(1)(b) GDPR — steps taken before entering into a contract).',
         },
         {
           h: 'How long',
@@ -623,10 +704,13 @@ export const copy = {
           p: 'You may access, correct or erase your data, restrict or object to its processing, and complain to the Polish data protection authority (UODO). Giving your details is voluntary, but we cannot prepare a quote without them.',
         },
         {
+          id: 'cookies',
           h: 'Cookies',
           p: 'This website uses no cookies and no tracking tools.',
         },
       ],
+      cookiesTracking:
+        'With your consent this website uses {tools} for visit statistics and ad measurement. Without consent we use no cookies and no tracking tools. You can change your choice under “Cookie settings” at the bottom of the page.',
     },
   },
 };
@@ -639,6 +723,16 @@ export const defaultContacts = {
   email: '',
   instagram: '',
   facebook: '',
+  appStore: '',
+  googlePlay: '',
+};
+
+// Marketing switches; analytics stays off until an ID is entered in the panel.
+export const defaultMarketing = {
+  promo: true,
+  autoplay: true,
+  ga4: '',
+  pixel: '',
 };
 
 export const defaultCompany = {
