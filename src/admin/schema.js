@@ -45,7 +45,7 @@ export const SECTIONS = [
   {
     id: 'seasons',
     title: 'Rok okazji',
-    hint: 'Dom zmienia światło wraz z przewijaniem. Kolory scen są stałe, teksty możesz zmienić.',
+    hint: 'Galeria kart: ten sam dom w scenach na różne okazje. Kolory scen są stałe, teksty możesz zmienić.',
     fields: [f('seasons.label', 'Etykieta'), f('seasons.title', 'Nagłówek'), f('seasons.autopilot', 'Opis Autopilota', true)],
     lists: [
       {

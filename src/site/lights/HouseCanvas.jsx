@@ -4,21 +4,23 @@ import { HOUSE_POSTER, HouseRenderer, loadHouse } from './renderer.js';
 /**
  * The night photo with its roofline lit by `look`. With `intro` the lights
  * come on in a wave the first time the house is seen; `power` switches them
- * on and off. Rendering pauses whenever the canvas is off-screen.
+ * on and off. With `animate` off the house is drawn once, as a still, until
+ * it is switched back on. Rendering pauses whenever the canvas is off-screen.
  */
 export default function HouseCanvas({
   look = 'warm',
   power = true,
   intro = false,
   introDelay = 350,
+  animate = true,
   options,
   className = '',
   onLit,
 }) {
   const canvasRef = useRef(null);
   const rendererRef = useRef(null);
-  const propsRef = useRef({ power, intro, introDelay, onLit });
-  propsRef.current = { power, intro, introDelay, onLit };
+  const propsRef = useRef({ power, intro, introDelay, onLit, animate });
+  propsRef.current = { power, intro, introDelay, onLit, animate };
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -26,6 +28,7 @@ export default function HouseCanvas({
     const renderer = new HouseRenderer(canvas, options);
     rendererRef.current = renderer;
     renderer.setLook(look, -Infinity);
+    renderer.still = !propsRef.current.animate;
     let raf = 0;
     let visible = false;
     let started = false;
@@ -34,9 +37,12 @@ export default function HouseCanvas({
     const frame = (now) => {
       raf = 0;
       if (!alive || !visible || document.hidden) return;
-      // Full rate while something moves, half rate for the gentle idle shimmer.
-      if (renderer.busy(now) || renderer.frames % 2 === 0) renderer.render(now);
+      const live = propsRef.current.animate;
+      // Full rate while something moves, half rate for the gentle idle
+      // shimmer; a still is drawn every time it is woken, then stops.
+      if (!live || renderer.busy(now) || renderer.frames % 2 === 0) renderer.render(now);
       else renderer.frames += 1;
+      if (!live && !renderer.busy(now)) return;
       raf = requestAnimationFrame(frame);
     };
     const wake = () => {
@@ -127,6 +133,13 @@ export default function HouseCanvas({
     if (!power && renderer.on) renderer.turnOff(now);
     renderer.wake?.();
   }, [power]);
+
+  useEffect(() => {
+    const renderer = rendererRef.current;
+    if (!renderer) return;
+    renderer.still = !animate;
+    renderer.wake?.();
+  }, [animate]);
 
   if (failed) {
     return <img src={HOUSE_POSTER} alt="" className={`${className} object-cover`} />;

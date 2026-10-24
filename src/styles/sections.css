@@ -429,158 +429,120 @@
   text-shadow: 0 0 calc(var(--lit, 0) * 30px) rgba(231, 180, 100, calc(var(--lit, 0) * 0.55));
 }
 
-/* Seasons --------------------------------------------------------------- */
-.seasons {
-  height: calc(var(--steps, 8) * 56vh + 100svh);
-}
-@media (max-width: 767px) {
-  .seasons {
-    height: calc(var(--steps, 8) * 44vh + 100svh);
-  }
-}
-.seasons-stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
-  background: #02040a;
-}
-.seasons-shade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, #050506 0%, rgba(5, 5, 6, 0.55) 16%, rgba(5, 5, 6, 0) 36%),
-    linear-gradient(0deg, #050506 0%, rgba(5, 5, 6, 0.86) 18%, rgba(5, 5, 6, 0) 48%),
-    linear-gradient(90deg, rgba(5, 5, 6, 0.6) 0%, rgba(5, 5, 6, 0) 46%);
-}
-.season-card {
-  max-width: 36rem;
-  animation: season-in 0.9s var(--ease-out) both;
-}
-.season-date {
-  font-size: clamp(3.5rem, 10.5vw, 8.8rem);
-  font-weight: 620;
-  letter-spacing: -0.06em;
-  line-height: 0.92;
-  padding-right: 0.06em;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  width: fit-content;
-  white-space: nowrap;
-}
-.season-date.is-long {
-  font-size: clamp(2.7rem, 7vw, 6.2rem);
-}
-.season-name {
-  margin-top: 0.85rem;
-  font-size: clamp(1.25rem, 2vw, 1.65rem);
-  font-weight: 560;
-  letter-spacing: -0.025em;
-}
-.season-text {
-  margin-top: 0.35rem;
-  max-width: 28rem;
-  color: rgba(244, 239, 231, 0.74);
-}
-@keyframes season-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 18px, 0);
-    filter: blur(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-}
+/* Scenes gallery -------------------------------------------------------- */
 .autopilot {
   display: flex;
-  max-width: 21rem;
+  max-width: 22rem;
   align-items: flex-start;
   gap: 0.75rem;
   border-radius: 18px;
-  padding: 0.9rem 1rem;
+  padding: 0.95rem 1.05rem;
   font-size: 14px;
   line-height: 1.5;
-  color: rgba(244, 239, 231, 0.84);
+  color: rgba(244, 239, 231, 0.86);
 }
 .autopilot svg {
   margin-top: 0.15rem;
 }
-.timeline {
-  margin-top: 1.75rem;
-}
-.timeline-track {
-  position: relative;
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.12);
-}
-.timeline-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: var(--at);
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgba(239, 197, 122, 0.12), var(--glow));
-  box-shadow: 0 0 14px var(--glow);
-  transition:
-    width 1.1s var(--ease-out),
-    background 1s,
-    box-shadow 1s;
-}
-.timeline-fill.is-everyday {
-  background: linear-gradient(90deg, rgba(255, 179, 94, 0.25), rgba(255, 179, 94, 0.55), rgba(255, 179, 94, 0.25));
-  box-shadow: 0 0 12px rgba(255, 179, 94, 0.35);
-}
-.timeline-dot {
-  position: absolute;
-  top: 50%;
-  height: 7px;
-  width: 7px;
-  margin: -3.5px 0 0 -3.5px;
-  border-radius: 999px;
-  background: #3b3b42;
-  transition:
-    background-color 0.6s,
-    box-shadow 0.6s,
-    transform 0.6s var(--ease-out);
-}
-.timeline-dot.is-past {
-  background: rgba(244, 239, 231, 0.55);
-}
-.timeline-dot.is-active {
-  background: #fff;
-  transform: scale(1.45);
-  box-shadow:
-    0 0 0 4px rgba(255, 255, 255, 0.1),
-    0 0 18px 3px var(--glow);
-}
-.timeline-months {
+.scene-grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  margin-top: 0.8rem;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 84rem;
+  padding: 0 1.25rem;
+}
+@media (min-width: 640px) {
+  .scene-grid {
+    padding: 0 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .scene-grid {
+    padding: 0 3rem;
+  }
+}
+.scene-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #0c0c0e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: default;
+  transition:
+    transform 0.6s var(--ease-out),
+    border-color 0.5s,
+    box-shadow 0.6s var(--ease-out);
+}
+.scene-card.is-live {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow:
+    0 24px 60px -28px color-mix(in srgb, var(--accent) 75%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.scene-card:focus-visible {
+  outline: 2px solid #efc57a;
+  outline-offset: 3px;
+}
+.scene-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #02040a;
+}
+.scene-card-media::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 30%;
+  background: linear-gradient(0deg, #0c0c0e, rgba(12, 12, 14, 0));
+  pointer-events: none;
+}
+.scene-card-text {
+  padding: 0.35rem 1.2rem 1.3rem;
+}
+.scene-card-date {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(244, 239, 231, 0.42);
+  color: var(--accent);
+}
+.scene-card-name {
+  margin-top: 0.3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.scene-card-line {
+  margin-top: 0.3rem;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(244, 239, 231, 0.7);
+}
+@media (max-width: 1023px) {
+  .scene-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 @media (max-width: 767px) {
-  .seasons-shade {
-    background:
-      linear-gradient(180deg, #050506 0%, rgba(5, 5, 6, 0.6) 22%, rgba(5, 5, 6, 0) 40%),
-      linear-gradient(0deg, #050506 0%, rgba(5, 5, 6, 0.92) 30%, rgba(5, 5, 6, 0) 52%);
+  .scene-grid {
+    display: flex;
+    gap: 0.85rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 1.25rem;
+  }
+  .scene-cell {
+    flex: none;
+    width: 82vw;
+    scroll-snap-align: center;
   }
   .autopilot {
     max-width: none;
-    padding: 0.7rem 0.85rem;
-    font-size: 13px;
-  }
-  .timeline-months span:nth-child(even) {
-    visibility: hidden;
   }
 }
 
@@ -612,15 +574,23 @@
   background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent);
   filter: blur(10px);
 }
+/* The phone is sized from the stage height, so it always fits whole. */
 .app-stage {
-  --stage-h: min(84vh, 780px);
+  --stage-h: min(calc(100vh - 8.5rem), 760px);
   position: sticky;
-  top: calc((100vh - var(--stage-h)) / 2 + 2rem);
+  top: calc((100vh - var(--stage-h)) / 2 + 1.25rem);
   height: var(--stage-h);
+  width: min(100%, calc(var(--stage-h) * 1.05));
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  padding: 2.5rem 1.5rem 1.6rem;
 }
-.app-stage-phone {
-  --w: min(clamp(250px, 21vw, 318px), calc(var(--stage-h) * 0.4));
-  margin-top: -1.5rem;
+.app-stage .phone {
+  --w: min(300px, 22vw, calc((var(--stage-h) - 7.5rem) / 2.18));
 }
 .app-stage-led {
   position: absolute;
@@ -633,10 +603,6 @@
   filter: drop-shadow(0 0 5px rgba(255, 205, 140, 0.95)) drop-shadow(0 0 14px rgba(255, 180, 90, 0.6));
 }
 .app-progress {
-  position: absolute;
-  bottom: 1.6rem;
-  left: 50%;
-  translate: -50% 0;
   display: flex;
   gap: 6px;
 }
@@ -723,20 +689,8 @@
 }
 
 /* Craft (day → night) -------------------------------------------------- */
-.craft {
-  height: 220vh;
-  background: var(--bg, #ede8df);
-}
-@media (max-width: 767px) {
-  .craft {
-    height: 185vh;
-  }
-}
 .craft-stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
+  position: relative;
   overflow: hidden;
   background: var(--bg, #ede8df);
   color: var(--fg, #1c1915);
@@ -929,7 +883,7 @@
 }
 @media (max-width: 1023px) {
   .eave {
-    max-height: 33vh;
+    max-height: 46vh;
   }
   .craft-text {
     font-size: 1rem;

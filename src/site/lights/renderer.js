@@ -159,6 +159,7 @@ export class HouseRenderer {
    * @param {HTMLCanvasElement} canvas
    * @param {{focusX?: number, focusY?: number, ground?: number, zoom?: number}} options
    *   focusX/focusY: point of the photo kept in view when it is cropped;
+   *   scale: extra zoom on top of covering the canvas (landscape only);
    *   ground/zoom: on portrait screens the photo is scaled to `zoom` times the
    *   screen width and its ground line sits at `ground` of the height.
    */
@@ -236,7 +237,7 @@ export class HouseRenderer {
         dh,
       };
     } else {
-      const s = Math.max(w / IMAGE_W, h / IMAGE_H);
+      const s = Math.max(w / IMAGE_W, h / IMAGE_H) * (this.options.scale ?? 1);
       const dw = IMAGE_W * s;
       const dh = IMAGE_H * s;
       rect = {
@@ -314,7 +315,8 @@ export class HouseRenderer {
     if (!assets || !w || !h || !this.comp) return;
     const geo = this.geo;
     const n = geo.leds.length;
-    const t = this.reduced ? 2600 : now;
+    // Stills and reduced motion show one fixed moment of the effect.
+    const t = this.reduced || this.still ? 2600 : now;
     const fade = this.reduced ? 1 : smooth((now - this.lookSince) / FADE_MS);
     const power = this.powerAt(now);
     const front = this.sweepFront(now);

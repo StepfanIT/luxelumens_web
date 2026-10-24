@@ -64,7 +64,6 @@ function StickyStory({ chapters, screens, label }) {
             screens={chapters.map((chapter) => ({ src: screens[chapter.key] }))}
             active={active}
             glow={GLOW[key]}
-            className="app-stage-phone"
             label={label}
           />
           <div className="app-progress" aria-hidden="true">
