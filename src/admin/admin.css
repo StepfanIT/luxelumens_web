@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background: #050506;
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-ink font-sans text-cream antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid #efc57a;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .a-card {
+    @apply rounded-2xl border border-white/[0.08] bg-[#0d0d10];
+  }
+  .a-label {
+    @apply mb-1.5 flex items-baseline justify-between gap-3 text-[13px] font-medium text-cream/85;
+  }
+  .a-label-hint {
+    @apply text-xs font-normal text-mist/80;
+  }
+  .a-input {
+    @apply w-full rounded-xl border border-white/[0.1] bg-black/30 px-3.5 py-2.5 text-[15px] text-cream transition placeholder:text-mist/50 hover:border-white/20;
+  }
+  .a-input:focus {
+    @apply border-gold-300/70 bg-black/40 outline-none;
+    box-shadow: 0 0 0 3px rgba(239, 197, 122, 0.14);
+  }
+  .a-btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .a-btn-md {
+    @apply h-10 px-4 text-sm;
+  }
+  .a-btn-sm {
+    @apply h-8 px-3 text-[13px];
+  }
+  .a-btn-primary {
+    @apply bg-gold-300 text-[#1a1206] hover:bg-gold-200;
+  }
+  .a-btn-secondary {
+    @apply border border-white/[0.1] bg-white/[0.05] text-cream hover:bg-white/[0.1];
+  }
+  .a-btn-ghost {
+    @apply text-mist hover:bg-white/[0.06] hover:text-cream;
+  }
+  .a-btn-danger {
+    @apply border border-red-400/30 bg-red-500/10 text-red-200 hover:bg-red-500/20;
+  }
+  .a-toast {
+    @apply pointer-events-auto rounded-full border border-white/10 bg-[#17171b]/95 px-4 py-2.5 text-sm text-cream shadow-2xl backdrop-blur;
+    animation: toast-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .a-toast-error {
+    @apply border-red-400/30 text-red-100;
+  }
+  .a-nav-link {
+    @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14.5px] text-mist transition hover:bg-white/[0.05] hover:text-cream;
+  }
+  .a-nav-link.is-active {
+    @apply bg-white/[0.07] text-cream;
+  }
+  .a-chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/[0.1] px-3 py-1.5 text-[13px] text-mist transition hover:border-white/25 hover:text-cream;
+  }
+  .a-chip.is-active {
+    @apply border-gold-300/60 bg-gold-300/10 text-gold-100;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}

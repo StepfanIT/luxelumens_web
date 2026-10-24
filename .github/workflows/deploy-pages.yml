@@ -35,6 +35,10 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          # Public web-app config for the admin panel's sign-in (repository variables).
+          VITE_FIREBASE_API_KEY: ${{ vars.FIREBASE_WEB_API_KEY }}
+          VITE_FIREBASE_APP_ID: ${{ vars.FIREBASE_WEB_APP_ID }}
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

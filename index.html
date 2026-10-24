@@ -1,72 +1,69 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" class="no-js">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Luxe Lumens — stałe oświetlenie LED elewacji sterowane z telefonu</title>
     <meta
       name="description"
-      content="Luxe Lumens projektuje i montuje stałe oświetlenie LED elewacji w Polsce: eleganckie światło architektoniczne, sceny świąteczne i sterowanie z telefonu."
+      content="Linia LED ukryta pod okapem: za dnia niewidoczna, wieczorem ciepła biel albo kolory na każde święto. Sterowanie w aplikacji, harmonogramy i Autopilot. Bezpłatna wycena."
     />
-    <meta
-      name="keywords"
-      content="stałe oświetlenie elewacji, oświetlenie LED domu, oświetlenie zewnętrzne, permanentne lampki świąteczne, smart lighting, Luxe Lumens"
-    />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="Luxe Lumens" />
-    <meta name="theme-color" content="#0b2545" />
-    <meta name="application-name" content="Luxe Lumens" />
-    <meta name="apple-mobile-web-app-title" content="Luxe Lumens" />
-    <meta name="format-detection" content="telephone=yes" />
+    <meta name="theme-color" content="#050506" />
+    <meta name="color-scheme" content="dark" />
     <link rel="canonical" href="https://luxelumens.pl/" />
+    <link rel="alternate" hreflang="pl" href="https://luxelumens.pl/" />
+    <link rel="alternate" hreflang="en" href="https://luxelumens.pl/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://luxelumens.pl/" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <link rel="manifest" href="./site.webmanifest" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pl_PL" />
+    <meta property="og:locale:alternate" content="en_GB" />
     <meta property="og:site_name" content="Luxe Lumens" />
-    <meta property="og:title" content="Luxe Lumens | Stałe oświetlenie LED elewacji" />
+    <meta property="og:title" content="Luxe Lumens — światło, które zostaje" />
     <meta
       property="og:description"
-      content="Eleganckie stałe oświetlenie LED elewacji dla domów w Polsce. Ciepła biel, sceny świąteczne i sterowanie z telefonu."
+      content="Stałe oświetlenie LED elewacji: niewidoczne za dnia, a wieczorem ciepła biel albo kolory na każde święto — z telefonu."
     />
     <meta property="og:url" content="https://luxelumens.pl/" />
-    <meta property="og:image" content="https://luxelumens.pl/images/app-preview-house.png" />
-    <meta property="og:image:alt" content="Nowoczesny dom z permanentnym oświetleniem LED elewacji" />
+    <meta property="og:image" content="https://luxelumens.pl/og-pl.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Luxe Lumens | Stałe oświetlenie LED elewacji" />
-    <meta
-      name="twitter:description"
-      content="Stałe oświetlenie LED elewacji: architektoniczne światło na co dzień i sceny na cały rok."
-    />
-    <meta name="twitter:image" content="https://luxelumens.pl/images/app-preview-house.png" />
-    <title>Luxe Lumens | Stałe oświetlenie elewacji</title>
+    <link rel="preload" as="image" href="./src/assets/house/off.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="./src/assets/house/light.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="./src/assets/house/on.webp" />
+    <script>
+      document.documentElement.classList.replace('no-js', 'js');
+    </script>
+    <style>
+      html { background: #050506; }
+      .js #seo { display: none; }
+    </style>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
+        "@type": "HomeAndConstructionBusiness",
         "name": "Luxe Lumens",
         "url": "https://luxelumens.pl/",
-        "telephone": "+48123456789",
-        "areaServed": {
-          "@type": "Country",
-          "name": "Polska"
-        },
-        "description": "Projekt i montaż stałego zewnętrznego oświetlenia LED elewacji dla domów: ciepła biel, sceny świąteczne i sterowanie aplikacją.",
-        "image": "https://luxelumens.pl/images/app-preview-house.png",
-        "sameAs": ["https://www.instagram.com/"],
-        "makesOffer": {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Stałe oświetlenie LED elewacji",
-            "serviceType": "Montaż zewnętrznego oświetlenia LED",
-            "areaServed": "Polska"
-          }
-        }
+        "description": "Stałe oświetlenie LED elewacji sterowane z aplikacji.",
+        "areaServed": { "@type": "Country", "name": "Polska" }
       }
     </script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div id="root">
+      <main id="seo">
+        <h1>Luxe Lumens — światło, które zostaje</h1>
+        <p>
+          Stałe oświetlenie LED elewacji. Linia LED ukryta pod okapem jest niewidoczna za dnia, a wieczorem
+          w aplikacji wybierasz ciepłą biel 2700K albo jeden z 48 efektów na święta. Harmonogramy działają w
+          sterowniku, także bez internetu. 5 lat gwarancji, do 50 000 godzin pracy.
+        </p>
+        <p><a href="./en/">English version</a></p>
+      </main>
+    </div>
+    <script type="module" src="./src/site/main.jsx"></script>
   </body>
 </html>
